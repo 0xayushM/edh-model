@@ -35,17 +35,17 @@ const SceneRig: React.FC = () => {
   const scroll = useScroll();
 
   // Final height for "half-visible" — tweak to taste / your camera
-  const FINAL_Y = 3;
+  const FINAL_Y = 1;
 
   // Choose roll sign for the last segment:
   // +90 => one direction, -90 => opposite. Pick the one that gives RIGHT=TOP, LEFT=BOTTOM on your model.
   const ROLL_DEG_SIGN = 90; // change to -90 if it looks reversed
 
   // Positions
-  const P0 = useMemo(() => new THREE.Vector3(0, 0, 10), []);
+  const P0 = useMemo(() => new THREE.Vector3(0, -0.5, 10), []);
   const P1 = useMemo(() => new THREE.Vector3(0, 0, 10), []);
-  const P2 = useMemo(() => new THREE.Vector3(0, 0, 10), []);
-  const P3 = useMemo(() => new THREE.Vector3(0, 0, 10), []);
+  const P2 = useMemo(() => new THREE.Vector3(0, -0.5, 10), []);
+  const P3 = useMemo(() => new THREE.Vector3(0, -0.5, 10), []);
   const P4 = useMemo(() => new THREE.Vector3(0, FINAL_Y, 10), []);
 
   // Orientations (quaternions)
