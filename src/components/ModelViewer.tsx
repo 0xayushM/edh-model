@@ -50,7 +50,7 @@ function GltfModel({
   url = "/models/edhway.glb",
   scale = 0.1,
   position = [0.0, 0.0, 0.0],
-  rotation = [5, 2, 4.4],
+  rotation = [0, 0, 0],
 }: GltfModelProps) {
   const group = useRef<THREE.Group | null>(null);
   const gltf = useGLTF(url) as any;
@@ -145,7 +145,7 @@ export default function ModelViewer(): JSX.Element {
 
     useFrame((state: RootState) => {
       if (!modelRef.current) return;
-      const u = THREE.MathUtils.clamp(scroll.offset, 0, 1.5);
+      const u = THREE.MathUtils.clamp(scroll.offset, 0, 1);
 
       // find current segment index
       let i = 0;
@@ -171,8 +171,8 @@ export default function ModelViewer(): JSX.Element {
   };
 
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <Canvas shadows camera={{ position: [0, 1.2, 3], fov: 45 }}>
+    <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
+      <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
         <color attach="background" args={["#0a0a0a"]} />
 
         {/* Lights */}
@@ -194,14 +194,43 @@ export default function ModelViewer(): JSX.Element {
             <SceneRig />
           </Suspense>
 
-          {/* HTML overlay sections */}
+          {/* HTML overlay sections (full-screen each, transparent to keep model visible) */}
           <Scroll html>
-            <div className="h-screen relative z-2 bg-red-400 w-full">
-              <h1 style={{ height: '100vh' }}>Scroll Down to Begin</h1>
-              <h2 style={{ height: '100vh' }}>The model is moving...</h2>
-              <p style={{ height: '100vh' }}>...along the choreographed beats...</p>
-              <p style={{ height: '100vh' }}>...ending with a vertical reveal.</p>
-              <p style={{ height: '100vh' }}>This is the end!</p>
+            <div className="relative z-20 w-screen pointer-events-none">
+
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <h1 className="text-5xl font-bold mb-4">Scroll Down to Begin</h1>
+                  <p className="opacity-80">
+                    Sections are full-screen overlays; the model continues animating beneath.
+                  </p>
+                </div>
+              </section>
+
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <h2 className="text-4xl font-semibold mb-4">The model is moving...</h2>
+                  <p className="opacity-80">Customize this content freely.</p>
+                </div>
+              </section>
+
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <p className="text-2xl">...along the choreographed beats...</p>
+                </div>
+              </section>
+
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <p className="text-2xl">...ending with a vertical reveal.</p>
+                </div>
+              </section>
+
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <p className="text-2xl">This is the end!</p>
+                </div>
+              </section>
             </div>
           </Scroll>
         </ScrollControls>
