@@ -254,10 +254,6 @@ export default function ModelViewer(): JSX.Element {
     const S = (n: number) => n / 11; // section -> normalized offset
     const cuts = [0.0, S(2), S(3), S(4), S(5), S(6), S(7), S(8), S(9), S(10), 1.0];
 
-    // rotations arrays across segments between cuts
-    // const rotAList = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45];
-    // const rotBList = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45, Q_leftRolled];
-
     const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
     // small temp objects to reduce allocations
@@ -394,7 +390,7 @@ export default function ModelViewer(): JSX.Element {
         // direction from model to base world pos
         tmpDir.current.copy(tmpVecA.current).sub(tmpVecB.current).normalize();
 
-        const MAX_WORLD_OFFSET = 0.5;
+        const MAX_WORLD_OFFSET = 2;
 
         const s3 = S(3), s4 = S(4), s8 = S(8), s10 = S(10);
         let scaleFactor = 1;
