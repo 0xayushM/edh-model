@@ -1,4 +1,3 @@
-// components/ModelViewer.tsx
 "use client";
 
 import React, { JSX, Suspense, useEffect, useRef, useMemo } from "react";
@@ -133,6 +132,10 @@ export default function ModelViewer(): JSX.Element {
     const capRef = useRef<THREE.Object3D | null>(null);
     const shellNames = useMemo(
       () => [
+        "cap_bl",
+        "cap_br",
+        "cap_tl",
+        "cap_tr",
         // 1-series
         "shell_bl_1",
         "shell_br_1",
@@ -143,11 +146,6 @@ export default function ModelViewer(): JSX.Element {
         "shell_br_3",
         "shell_tl_3",
         "shell_tr_3",
-        // .001 duplicates (Blender naming)
-        "shell_br_1.001",
-        "shell_tr_1.001",
-        "shell_bl_1.001",
-        "shell_tl_1.001",
       ],
       []
     );
