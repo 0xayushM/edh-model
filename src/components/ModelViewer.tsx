@@ -161,6 +161,10 @@ export default function ModelViewer(): JSX.Element {
       }
     >>({});
 
+    // Global opacity fade support: cache materials and their base opacity
+    type MatEntry = { mesh: THREE.Mesh; baseOpacity: number[] };
+    const modelMatEntries = useRef<MatEntry[]>([]);
+
     // final reveal height (tune for your camera)
     const FINAL_Y = 1.7;
     const ROLL_DEG_SIGN = 270; // try -90 if the roll looks inverted for EDHWay
@@ -241,6 +245,53 @@ export default function ModelViewer(): JSX.Element {
       }
       if (capRef.current) {
         capRef.current.rotation.z = u * Math.PI * 2;
+      }
+
+      // Cache model mesh materials once for global opacity fade
+      if (modelRef.current && modelMatEntries.current.length === 0) {
+        modelRef.current.traverse((child: any) => {
+          if (child && child.isMesh) {
+            const mesh = child as THREE.Mesh;
+            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            const baseOpacity = mats.map((m: any) => (typeof m?.opacity === 'number' ? m.opacity : 1));
+            modelMatEntries.current.push({ mesh, baseOpacity });
+          }
+        });
+      }
+
+      // Global model opacity fade timeline:
+      // - Fade from 1 -> 0.2 across Section 3 (S(2) -> S(3))
+      // - Hold at 0.2 across Sections 4–7 (S(3) -> S(7))
+      // - Restore from 0.2 -> 1 across Section 8 (S(7) -> S(8))
+      if (modelMatEntries.current.length) {
+        const s2 = S(2), s3 = S(3), s7 = S(7), s8 = S(8);
+        const MIN_ALPHA = 0.2;
+        let alpha = 1;
+        if (u < s2) {
+          alpha = 1;
+        } else if (u < s3) {
+          const p = (u - s2) / (s3 - s2);
+          alpha = 1 - (1 - MIN_ALPHA) * easeInOut(p);
+        } else if (u < s7) {
+          alpha = MIN_ALPHA;
+        } else if (u < s8) {
+          const p = (u - s7) / (s8 - s7);
+          alpha = MIN_ALPHA + (1 - MIN_ALPHA) * easeInOut(p);
+        } else {
+          alpha = 1;
+        }
+
+        for (const entry of modelMatEntries.current) {
+          const mats = Array.isArray((entry.mesh as any).material)
+            ? (entry.mesh as any).material
+            : [(entry.mesh as any).material];
+          mats.forEach((m: any, j: number) => {
+            if (!m) return;
+            m.transparent = true;
+            const base = entry.baseOpacity[j] ?? 1;
+            m.opacity = base * alpha;
+          });
+        }
       }
 
       // cache shell objects once
