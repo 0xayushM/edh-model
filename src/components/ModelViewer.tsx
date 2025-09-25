@@ -161,15 +161,6 @@ export default function ModelViewer(): JSX.Element {
       }
     >>({});
 
-    // Gear highlight targets and cache
-    const gearNames = useMemo(() => ['gear_2', 'gear_4', 'gear_8', 'gear_9', 'gear_11'], []);
-    type MeshEntry = { mesh: THREE.Mesh; baseColors: number[] };
-    const gears = useRef<Record<string, { ref: THREE.Object3D | null; meshEntries: MeshEntry[] }>>({});
-
-    // Cache all mesh materials in the model (for global opacity fade)
-    type MatEntry = { mesh: THREE.Mesh; baseTransparent: boolean[]; baseOpacity: number[] };
-    const modelMatEntries = useRef<MatEntry[]>([]);
-
     // final reveal height (tune for your camera)
     const FINAL_Y = 1.7;
     const ROLL_DEG_SIGN = 270; // try -90 if the roll looks inverted for EDHWay
@@ -187,7 +178,7 @@ export default function ModelViewer(): JSX.Element {
       []
     );
     const Q_frontPitch45 = useMemo(
-      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(-45), deg(0), "YXZ")),
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(45), deg(0), "YXZ")),
       []
     );
     const Q_rightRoll45 = useMemo(
@@ -252,19 +243,6 @@ export default function ModelViewer(): JSX.Element {
         capRef.current.rotation.z = u * Math.PI * 2;
       }
 
-      // Cache model mesh materials once for global opacity fade
-      if (modelRef.current && modelMatEntries.current.length === 0) {
-        modelRef.current.traverse((child: any) => {
-          if (child && child.isMesh) {
-            const mesh = child as THREE.Mesh;
-            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-            const baseTransparent = mats.map((m: any) => !!m?.transparent);
-            const baseOpacity = mats.map((m: any) => (typeof m?.opacity === 'number' ? m.opacity : 1));
-            modelMatEntries.current.push({ mesh, baseTransparent, baseOpacity });
-          }
-        });
-      }
-
       // cache shell objects once
       if (modelRef.current) {
         modelRef.current.updateMatrixWorld(true);
@@ -279,91 +257,6 @@ export default function ModelViewer(): JSX.Element {
                 baseScale: ref.scale.clone(),
               };
             }
-          }
-        }
-      }
-
-      // Cache gear objects once and store their mesh children + base colors
-      if (modelRef.current) {
-        for (const name of gearNames) {
-          if (!gears.current[name]) {
-            const ref = modelRef.current.getObjectByName(name) || null;
-            if (ref) {
-              const meshEntries: MeshEntry[] = [];
-              ref.traverse((child: any) => {
-                if (child && child.isMesh) {
-                  const mesh = child as THREE.Mesh;
-                  const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-                  const baseColors = mats.map((m: any) => (m && m.color && typeof m.color.getHex === 'function') ? m.color.getHex() : -1);
-                  meshEntries.push({ mesh, baseColors });
-                }
-              });
-              gears.current[name] = { ref, meshEntries };
-            }
-          }
-        }
-      }
-
-      // Global model opacity fade: restore to full at end of Section 8 (S(8))
-      if (modelMatEntries.current.length) {
-        const s2 = S(2), s3 = S(3), s7 = S(7), s8 = S(8);
-        let targetOpacity = 1;
-        if (u < s2) {
-          targetOpacity = 1;
-        } else if (u < s3) {
-          const p = (u - s2) / (s3 - s2);
-          targetOpacity = 1 - 0.8 * easeInOut(p); // 1 -> 0.2 across Section 3
-        } else if (u < s7) {
-          targetOpacity = 0.2; // hold through Sections 4..7
-        } else if (u < s8) {
-          const p = (u - s7) / (s8 - s7);
-          targetOpacity = 0.2 + 0.8 * easeInOut(p); // 0.2 -> 1 across Section 8
-        } else {
-          targetOpacity = 1; // from Section 9 onwards
-        }
-
-        const highlightActive = u >= s3 && u < s8;
-        const gear2Root = gears.current['gear_2']?.ref || null;
-
-        for (const entry of modelMatEntries.current) {
-          const meshObj = entry.mesh as unknown as THREE.Object3D;
-          let underGear2 = false;
-          if (highlightActive && gear2Root) {
-            let pNode: THREE.Object3D | null = meshObj;
-            while (pNode) {
-              if (pNode === gear2Root) { underGear2 = true; break; }
-              pNode = pNode.parent as THREE.Object3D | null;
-            }
-          }
-          const mats = Array.isArray((entry.mesh as any).material)
-            ? (entry.mesh as any).material
-            : [(entry.mesh as any).material];
-          mats.forEach((m: any) => {
-            if (!m) return;
-            m.transparent = true;
-            m.opacity = underGear2 ? 1 : targetOpacity;
-          });
-        }
-      }
-
-      // Highlight only gear_2 during Sections 3–8; restore colors outside
-      if (Object.keys(gears.current).length) {
-        const gearHighlightActive = u >= S(3) && u < S(8);
-        for (const name of gearNames) {
-          const data = gears.current[name];
-          if (!data) continue;
-          const active = gearHighlightActive && name === 'gear_2';
-          for (const entry of data.meshEntries) {
-            const mats = Array.isArray(entry.mesh.material) ? entry.mesh.material : [entry.mesh.material];
-            mats.forEach((m: any, j: number) => {
-              if (!m || !m.color) return;
-              if (active) {
-                m.color.set('#ff0000');
-              } else {
-                const hex = entry.baseColors[j] ?? -1;
-                if (hex !== -1) m.color.setHex(hex);
-              }
-            });
           }
         }
       }
