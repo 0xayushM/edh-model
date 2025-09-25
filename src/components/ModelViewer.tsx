@@ -196,38 +196,67 @@ export default function ModelViewer(): JSX.Element {
     const P0 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
     const P1 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
     const P2 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
-    const P3 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
-    const P4 = useMemo(() => new THREE.Vector3(0, FINAL_Y, 0), []);
+    const P3 = useMemo(() => new THREE.Vector3(-0.5, -0.75, 1.6), []);
+    const P4 = useMemo(() => new THREE.Vector3(0.4, -0.4, 1.5), []);
+    const P5 = useMemo(() => new THREE.Vector3(-0.7, 0.2, 1.7), []);
+    const P6 = useMemo(() => new THREE.Vector3(0.2, -0.7, 1.7), []);
+    const PFinal = useMemo(() => new THREE.Vector3(0, FINAL_Y, 0), []);
 
     // Rotations (quaternions)
     const Q_left = useMemo(
       () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(-120), "YXZ")),
       []
     );
-    const Q_frontPitch45 = useMemo(
-      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(45), deg(0), "YXZ")),
-      []
-    );
+
     const Q_rightRoll45 = useMemo(
-      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(-90), deg(45), "YXZ")),
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(90), deg(45), "YXZ")),
       []
     );
     const Q_leftRolled = useMemo(
       () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-90), deg(90), deg(ROLL_DEG_SIGN), "YXZ")),
       []
     );
-    const Q_leftSpin = useMemo(
-      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(270), deg(-120), "YXZ")),
+
+    const Q_initial = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(180), 0, 0, "YXZ")),
       []
     );
 
+    const Q_section1 = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(90), deg(0), deg(0), "YXZ")),
+      []
+    );
+
+    const Q_section2 = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(130), deg(40), deg(45), "YXZ")),
+      []
+    );
+
+    const Q_section3 = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(50), deg(120), deg(-120), "YXZ")),
+      []
+    );
+
+    const Q_section4 = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(20), deg(-120), "YXZ")),
+      []
+    );
+
+    const Q_rotate = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(30), "YXZ")),
+      []
+    );
+
+    const rotAList = [Q_initial, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_left, Q_left, Q_rotate];
+    const rotBList = [Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_left, Q_left, Q_rotate, Q_leftRolled];
+
     // === pages & cuts (pages=11) ===
     const S = (n: number) => n / 11; // section -> normalized offset
-    const cuts = [0.0, S(1), S(2), S(3), S(8), S(9), S(10), 1.0];
+    const cuts = [0.0, S(2), S(3), S(4), S(5), S(6), S(7), S(8), S(9), S(10), 1.0];
 
     // rotations arrays across segments between cuts
-    const rotAList = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45];
-    const rotBList = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45, Q_leftRolled];
+    // const rotAList = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45];
+    // const rotBList = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45, Q_leftRolled];
 
     const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
@@ -253,8 +282,8 @@ export default function ModelViewer(): JSX.Element {
         u1 = cuts[i + 1];
       const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
 
-      const posA = [P0, P1, P2, P3, P3, P3, P3][i] ?? P3;
-      const posB = [P1, P2, P3, P3, P3, P3, P4][i] ?? P4;
+      const posA = [P0, P1, P2, P3, P4, P5, P6, P2, P2][i] ?? P2;
+      const posB = [P1, P2, P3, P4, P5, P6, P2, P2, P2, PFinal][i] ?? PFinal;
 
       const rotA = rotAList[i] ?? Q_left;
       const rotB = rotBList[i] ?? Q_left;
@@ -367,11 +396,11 @@ export default function ModelViewer(): JSX.Element {
 
         const MAX_WORLD_OFFSET = 0.5;
 
-        const s2 = S(2), s3 = S(3), s8 = S(8), s10 = S(10);
+        const s3 = S(3), s4 = S(4), s8 = S(8), s10 = S(10);
         let scaleFactor = 1;
         let travel = 0;
-        if (u <= s2) {
-          const p = easeInOut(THREE.MathUtils.clamp(u / s2, 0, 1));
+        if (u <= s3) {
+          const p = easeInOut(THREE.MathUtils.clamp(u / s3, 0, 1));
           scaleFactor = 1 - p; // 1 -> 0
           travel = p;
         } else if (u < s8) {
