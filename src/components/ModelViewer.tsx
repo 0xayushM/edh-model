@@ -189,14 +189,14 @@ export default function ModelViewer(): JSX.Element {
     const cachedTargetNames = useRef<Set<string>>(new Set());
 
     // final reveal height (tune for your camera)
-    const FINAL_Y = 1.7;
+    const FINAL_Y = 2;
     const ROLL_DEG_SIGN = -90;
 
     // Positions (kept near camera)
     const P0 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
     const P1 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
     const P2 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
-    const P3 = useMemo(() => new THREE.Vector3(-0.5, -0.75, 1.6), []);
+    const P3 = useMemo(() => new THREE.Vector3(-0.5, -0.75, 1.7), []);
     const P4 = useMemo(() => new THREE.Vector3(0.4, -0.4, 1.5), []);
     const P5 = useMemo(() => new THREE.Vector3(-0.7, 0.2, 1.7), []);
     const P6 = useMemo(() => new THREE.Vector3(0.2, -0.7, 1.7), []);
@@ -238,7 +238,7 @@ export default function ModelViewer(): JSX.Element {
     );
 
     const Q_section4 = useMemo(
-      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(20), deg(-120), "YXZ")),
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(20), deg(45), "YXZ")),
       []
     );
 
@@ -247,12 +247,12 @@ export default function ModelViewer(): JSX.Element {
       []
     );
 
-    const rotAList = [Q_initial, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_left, Q_left, Q_rotate];
-    const rotBList = [Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_left, Q_left, Q_rotate, Q_leftRolled];
+    const rotAList = [Q_initial, Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_left, Q_left];
+    const rotBList = [Q_left,Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_left, Q_left, Q_leftRolled];
 
     // === pages & cuts (pages=11) ===
     const S = (n: number) => n / 11; // section -> normalized offset
-    const cuts = [0.0, S(2), S(3), S(4), S(5), S(6), S(7), S(8), S(9), S(10), 1.0];
+    const cuts = [0.0, S(1), S(2), S(3), S(4), S(5), S(6), S(7), S(8), S(9), S(10), 1.0];
 
     const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
@@ -278,8 +278,8 @@ export default function ModelViewer(): JSX.Element {
         u1 = cuts[i + 1];
       const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
 
-      const posA = [P0, P1, P2, P3, P4, P5, P6, P2, P2][i] ?? P2;
-      const posB = [P1, P2, P3, P4, P5, P6, P2, P2, P2, PFinal][i] ?? PFinal;
+      const posA = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P2][i] ?? P2;
+      const posB = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P2, PFinal][i] ?? PFinal;
 
       const rotA = rotAList[i] ?? Q_left;
       const rotB = rotBList[i] ?? Q_left;
@@ -460,7 +460,7 @@ export default function ModelViewer(): JSX.Element {
           <Scroll html>
             <div className="relative z-20 w-screen pointer-events-none">
               {/* Section 1 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
+              <section className="w-screen h-screen bg-black/50 flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <h1 className="text-5xl font-bold mb-4">Scroll Down to Begin</h1>
                   <p className="opacity-80">
@@ -470,7 +470,7 @@ export default function ModelViewer(): JSX.Element {
               </section>
 
               {/* Section 2 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
+              <section className="w-screen bg-red-400/50 h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <h2 className="text-4xl font-semibold mb-4">The model is moving...</h2>
                   <p className="opacity-80">Customize this content freely.</p>
