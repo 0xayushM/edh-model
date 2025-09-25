@@ -161,6 +161,15 @@ export default function ModelViewer(): JSX.Element {
       }
     >>({});
 
+    // Gear highlight targets and cache
+    const gearNames = useMemo(() => ['gear_2', 'gear_4', 'gear_8', 'gear_9', 'gear_11'], []);
+    type MeshEntry = { mesh: THREE.Mesh; baseColors: number[] };
+    const gears = useRef<Record<string, { ref: THREE.Object3D | null; meshEntries: MeshEntry[] }>>({});
+
+    // Cache all mesh materials in the model (for global opacity fade)
+    type MatEntry = { mesh: THREE.Mesh; baseTransparent: boolean[]; baseOpacity: number[] };
+    const modelMatEntries = useRef<MatEntry[]>([]);
+
     // final reveal height (tune for your camera)
     const FINAL_Y = 1.7;
     const ROLL_DEG_SIGN = 270; // try -90 if the roll looks inverted for EDHWay
@@ -189,13 +198,18 @@ export default function ModelViewer(): JSX.Element {
       () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-90), deg(90), deg(ROLL_DEG_SIGN), "YXZ")),
       []
     );
+    const Q_leftSpin = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(270), deg(-120), "YXZ")),
+      []
+    );
 
-    // === pages & cuts (pages=10) ===
-    const cuts = [0.0, 0.1, 0.2, 0.3, 0.8, 1.0];
+    // === pages & cuts (pages=11) ===
+    const S = (n: number) => n / 11; // section -> normalized offset
+    const cuts = [0.0, S(1), S(2), S(3), S(8), S(9), S(10), 1.0];
 
-    // rotations arrays
-    const rotAList = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left, Q_left];
-    const rotBList = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_leftRolled];
+    // rotations arrays across segments between cuts
+    const rotAList = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45];
+    const rotBList = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_left, Q_frontPitch45, Q_leftRolled];
 
     const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
@@ -221,8 +235,8 @@ export default function ModelViewer(): JSX.Element {
         u1 = cuts[i + 1];
       const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
 
-      const posA = [P0, P1, P2, P3, P3][i] ?? P3;
-      const posB = [P1, P2, P3, P3, P4][i] ?? P4;
+      const posA = [P0, P1, P2, P3, P3, P3, P3][i] ?? P3;
+      const posB = [P1, P2, P3, P3, P3, P3, P4][i] ?? P4;
 
       const rotA = rotAList[i] ?? Q_left;
       const rotB = rotBList[i] ?? Q_left;
@@ -236,6 +250,19 @@ export default function ModelViewer(): JSX.Element {
       }
       if (capRef.current) {
         capRef.current.rotation.z = u * Math.PI * 2;
+      }
+
+      // Cache model mesh materials once for global opacity fade
+      if (modelRef.current && modelMatEntries.current.length === 0) {
+        modelRef.current.traverse((child: any) => {
+          if (child && child.isMesh) {
+            const mesh = child as THREE.Mesh;
+            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+            const baseTransparent = mats.map((m: any) => !!m?.transparent);
+            const baseOpacity = mats.map((m: any) => (typeof m?.opacity === 'number' ? m.opacity : 1));
+            modelMatEntries.current.push({ mesh, baseTransparent, baseOpacity });
+          }
+        });
       }
 
       // cache shell objects once
@@ -256,12 +283,91 @@ export default function ModelViewer(): JSX.Element {
         }
       }
 
-      // ----------------------------
-      // Shell animation: updated behavior per your request:
-      // - scale -> 0 BY the start of section 3 (u <= 0.2)
-      // - hidden through middle block (u in (0.2, 0.8))
-      // - reappear (scale easing in) starting at u >= 0.8
-      // ----------------------------
+      // Cache gear objects once and store their mesh children + base colors
+      if (modelRef.current) {
+        for (const name of gearNames) {
+          if (!gears.current[name]) {
+            const ref = modelRef.current.getObjectByName(name) || null;
+            if (ref) {
+              const meshEntries: MeshEntry[] = [];
+              ref.traverse((child: any) => {
+                if (child && child.isMesh) {
+                  const mesh = child as THREE.Mesh;
+                  const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+                  const baseColors = mats.map((m: any) => (m && m.color && typeof m.color.getHex === 'function') ? m.color.getHex() : -1);
+                  meshEntries.push({ mesh, baseColors });
+                }
+              });
+              gears.current[name] = { ref, meshEntries };
+            }
+          }
+        }
+      }
+
+      // Global model opacity fade: restore to full at end of Section 8 (S(8))
+      if (modelMatEntries.current.length) {
+        const s2 = S(2), s3 = S(3), s7 = S(7), s8 = S(8);
+        let targetOpacity = 1;
+        if (u < s2) {
+          targetOpacity = 1;
+        } else if (u < s3) {
+          const p = (u - s2) / (s3 - s2);
+          targetOpacity = 1 - 0.8 * easeInOut(p); // 1 -> 0.2 across Section 3
+        } else if (u < s7) {
+          targetOpacity = 0.2; // hold through Sections 4..7
+        } else if (u < s8) {
+          const p = (u - s7) / (s8 - s7);
+          targetOpacity = 0.2 + 0.8 * easeInOut(p); // 0.2 -> 1 across Section 8
+        } else {
+          targetOpacity = 1; // from Section 9 onwards
+        }
+
+        const highlightActive = u >= s3 && u < s8;
+        const gear2Root = gears.current['gear_2']?.ref || null;
+
+        for (const entry of modelMatEntries.current) {
+          const meshObj = entry.mesh as unknown as THREE.Object3D;
+          let underGear2 = false;
+          if (highlightActive && gear2Root) {
+            let pNode: THREE.Object3D | null = meshObj;
+            while (pNode) {
+              if (pNode === gear2Root) { underGear2 = true; break; }
+              pNode = pNode.parent as THREE.Object3D | null;
+            }
+          }
+          const mats = Array.isArray((entry.mesh as any).material)
+            ? (entry.mesh as any).material
+            : [(entry.mesh as any).material];
+          mats.forEach((m: any) => {
+            if (!m) return;
+            m.transparent = true;
+            m.opacity = underGear2 ? 1 : targetOpacity;
+          });
+        }
+      }
+
+      // Highlight only gear_2 during Sections 3–8; restore colors outside
+      if (Object.keys(gears.current).length) {
+        const gearHighlightActive = u >= S(3) && u < S(8);
+        for (const name of gearNames) {
+          const data = gears.current[name];
+          if (!data) continue;
+          const active = gearHighlightActive && name === 'gear_2';
+          for (const entry of data.meshEntries) {
+            const mats = Array.isArray(entry.mesh.material) ? entry.mesh.material : [entry.mesh.material];
+            mats.forEach((m: any, j: number) => {
+              if (!m || !m.color) return;
+              if (active) {
+                m.color.set('#ff0000');
+              } else {
+                const hex = entry.baseColors[j] ?? -1;
+                if (hex !== -1) m.color.setHex(hex);
+              }
+            });
+          }
+        }
+      }
+
       for (const name in shells.current) {
         const data = shells.current[name];
         if (!data || !data.ref || !data.parent) continue;
@@ -280,24 +386,23 @@ export default function ModelViewer(): JSX.Element {
 
         const MAX_WORLD_OFFSET = 0.5;
 
-        // NEW scaling logic
+        const s2 = S(2), s3 = S(3), s8 = S(8), s10 = S(10);
         let scaleFactor = 1;
         let travel = 0;
-
-        if (u <= 0.2) {
-          // scale down to 0 by u=0.2
-          const p = easeInOut(THREE.MathUtils.clamp(u / 0.2, 0, 1));
+        if (u <= s2) {
+          const p = easeInOut(THREE.MathUtils.clamp(u / s2, 0, 1));
           scaleFactor = 1 - p; // 1 -> 0
-          travel = p; // optional: keep travel while scaling out
-        } else if (u < 0.8) {
-          // fully hidden through the middle block
+          travel = p;
+        } else if (u < s8) {
           scaleFactor = 0;
-          travel = 0; // no travel while hidden
+          travel = 0;
+        } else if (u < s10) {
+          const p = easeInOut(THREE.MathUtils.clamp((u - s8) / (s10 - s8), 0, 1));
+          scaleFactor = p;      // 0 -> 1 across Section 9
+          travel = 1 - p;       // return to base by end of Section 9
         } else {
-          // reappear starting at u=0.8, scale from 0 -> 1 across 0.8..1.0
-          const p = easeInOut(THREE.MathUtils.clamp((u - 0.8) / 0.2, 0, 1));
-          scaleFactor = p; // 0 -> 1
-          travel = 1 - p; // inverse travel while scaling in, optional
+          scaleFactor = 1;
+          travel = 0;
         }
 
         // compute target world and convert to local (re-using tmpVecA/tmpVecB)
@@ -339,7 +444,7 @@ export default function ModelViewer(): JSX.Element {
 
         <Environment preset="studio" />
 
-        <ScrollControls pages={10} damping={0.3}>
+        <ScrollControls pages={11} damping={0.3}>
           {/* 3D content controlled by scroll */}
           <Suspense fallback={<Html center style={{ color: "#fff" }}>Loading model…</Html>}>
             <SceneRig />
@@ -386,16 +491,24 @@ export default function ModelViewer(): JSX.Element {
                 </section>
               ))}
 
-              {/* Final original sections (now pages 9 and 10) */}
+              {/* Section 9: shells reassemble */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">...ending with a vertical reveal.</p>
+                  <p className="text-2xl">Shells reassembling...</p>
                 </div>
               </section>
 
+              {/* Section 10: extra rotation */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">This is the end!</p>
+                  <p className="text-2xl">Extra rotation…</p>
+                </div>
+              </section>
+
+              {/* Section 11: final reveal */}
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <p className="text-2xl">...ending with a vertical reveal.</p>
                 </div>
               </section>
             </div>
