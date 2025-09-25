@@ -200,6 +200,7 @@ export default function ModelViewer(): JSX.Element {
     const P4 = useMemo(() => new THREE.Vector3(0.4, -0.4, 1.5), []);
     const P5 = useMemo(() => new THREE.Vector3(-0.7, 0.2, 1.7), []);
     const P6 = useMemo(() => new THREE.Vector3(0.2, -0.7, 1.7), []);
+    const P7 = useMemo(() => new THREE.Vector3(0, 0, 0.5), []);
     const PFinal = useMemo(() => new THREE.Vector3(0, FINAL_Y, 0), []);
 
     // Rotations (quaternions)
@@ -247,8 +248,8 @@ export default function ModelViewer(): JSX.Element {
       []
     );
 
-    const rotAList = [Q_initial, Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_left, Q_left];
-    const rotBList = [Q_left,Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_left, Q_left, Q_leftRolled];
+    const rotAList = [Q_initial, Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left];
+    const rotBList = [Q_left,Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left, Q_leftRolled];
 
     // === pages & cuts (pages=11) ===
     const S = (n: number) => n / 11; // section -> normalized offset
@@ -278,8 +279,8 @@ export default function ModelViewer(): JSX.Element {
         u1 = cuts[i + 1];
       const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
 
-      const posA = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P2][i] ?? P2;
-      const posB = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P2, PFinal][i] ?? PFinal;
+      const posA = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P7][i] ?? P2;
+      const posB = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P7, PFinal][i] ?? PFinal;
 
       const rotA = rotAList[i] ?? Q_left;
       const rotB = rotBList[i] ?? Q_left;
@@ -390,7 +391,7 @@ export default function ModelViewer(): JSX.Element {
         // direction from model to base world pos
         tmpDir.current.copy(tmpVecA.current).sub(tmpVecB.current).normalize();
 
-        const MAX_WORLD_OFFSET = 2;
+        const MAX_WORLD_OFFSET = 3;
 
         const s3 = S(3), s4 = S(4), s8 = S(8), s10 = S(10);
         let scaleFactor = 1;
