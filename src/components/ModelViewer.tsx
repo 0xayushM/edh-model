@@ -14,37 +14,36 @@ import {
   useScroll,
   Center,
 } from "@react-three/drei";
- 
- interface GltfModelProps {
-   url?: string;
-   scale?: number | [number, number, number];
-   position?: [number, number, number];
-   rotation?: [number, number, number];
- }
- 
- // helpers (same style as Experience.tsx)
- const deg = (v: number) => (v * Math.PI) / 180;
- const lerpVec3 = (
-   a: THREE.Vector3,
-   b: THREE.Vector3,
-   t: number,
-   out = new THREE.Vector3()
- ) => out.set(
-   THREE.MathUtils.lerp(a.x, b.x, t),
-   THREE.MathUtils.lerp(a.y, b.y, t),
-   THREE.MathUtils.lerp(a.z, b.z, t)
- );
- const slerpQuat = (
-   a: THREE.Quaternion,
-   b: THREE.Quaternion,
-   t: number,
-   out = new THREE.Quaternion()
- ) => out.copy(a).slerp(b, t);
- 
+
+interface GltfModelProps {
+  url?: string;
+  scale?: number | [number, number, number];
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+}
+
+// helpers
+const deg = (v: number) => (v * Math.PI) / 180;
+const lerpVec3 = (
+  a: THREE.Vector3,
+  b: THREE.Vector3,
+  t: number,
+  out = new THREE.Vector3()
+) =>
+  out.set(
+    THREE.MathUtils.lerp(a.x, b.x, t),
+    THREE.MathUtils.lerp(a.y, b.y, t),
+    THREE.MathUtils.lerp(a.z, b.z, t)
+  );
+const slerpQuat = (
+  a: THREE.Quaternion,
+  b: THREE.Quaternion,
+  t: number,
+  out = new THREE.Quaternion()
+) => out.copy(a).slerp(b, t);
+
 /**
  * GltfModel component
- * - Plays all animation clips (looping).
- * - Fixed position, scale, and rotation at load.
  */
 function GltfModel({
   url = "/models/edhway.glb",
@@ -89,15 +88,24 @@ function GltfModel({
   useEffect(() => {
     if (!gltf || !gltf.scene) return;
     gltf.scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        if (!child.material || child.material.isShaderMaterial) {
-          child.material = new THREE.MeshStandardMaterial({
-            color: child.material?.color || new THREE.Color(0xdddddd),
+      if (!child.isMesh) return;
+      child.castShadow = true;
+      child.receiveShadow = true;
+
+      const assignFallback = (mat: any) => {
+        if (!mat || mat.isShaderMaterial) {
+          return new THREE.MeshStandardMaterial({
+            color: mat && mat.color ? mat.color : new THREE.Color(0xdddddd),
             roughness: 0.6,
           });
         }
+        return mat;
+      };
+
+      if (Array.isArray(child.material)) {
+        child.material = child.material.map(assignFallback);
+      } else {
+        child.material = assignFallback(child.material);
       }
     });
   }, [gltf]);
@@ -118,16 +126,46 @@ function GltfModel({
 }
 
 export default function ModelViewer(): JSX.Element {
-  // Scene rig that reacts to scroll (ported from Experience.tsx, adapted for EDHWay)
+  // Scene rig that reacts to scroll (ported from Experience.tsx, adapted)
   const SceneRig: React.FC = () => {
     const modelRef = useRef<THREE.Group>(null);
     const scroll = useScroll();
+    const capRef = useRef<THREE.Object3D | null>(null);
+    const shellNames = useMemo(
+      () => [
+        // 1-series
+        "shell_bl_1",
+        "shell_br_1",
+        "shell_tl_1",
+        "shell_tr_1",
+        // 3-series
+        "shell_bl_3",
+        "shell_br_3",
+        "shell_tl_3",
+        "shell_tr_3",
+        // .001 duplicates (Blender naming)
+        "shell_br_1.001",
+        "shell_tr_1.001",
+        "shell_bl_1.001",
+        "shell_tl_1.001",
+      ],
+      []
+    );
+    const shells = useRef<Record<
+      string,
+      {
+        ref: THREE.Object3D | null;
+        parent: THREE.Object3D | null;
+        baseLocalPos: THREE.Vector3;
+        baseScale: THREE.Vector3;
+      }
+    >>({});
 
     // final reveal height (tune for your camera)
-    const FINAL_Y = 1;
-    const ROLL_DEG_SIGN = 90; // try -90 if the roll looks inverted for EDHWay
+    const FINAL_Y = 1.7;
+    const ROLL_DEG_SIGN = 270; // try -90 if the roll looks inverted for EDHWay
 
-    // Positions (keep near camera z=0 so it's visible with our camera at z≈3)
+    // Positions (kept near camera)
     const P0 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
     const P1 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
     const P2 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
@@ -135,32 +173,144 @@ export default function ModelViewer(): JSX.Element {
     const P4 = useMemo(() => new THREE.Vector3(0, FINAL_Y, 0), []);
 
     // Rotations (quaternions)
-    const Q_left         = useMemo(() => new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(90), 0, 'YXZ')), []);
-    const Q_frontPitch45 = useMemo(() => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-45), 0, 0, 'YXZ')), []);
-    const Q_rightRoll45  = useMemo(() => new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(-90), deg(45), 'YXZ')), []);
-    const Q_leftRolled   = useMemo(() => new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(90), deg(ROLL_DEG_SIGN), 'YXZ')), []);
+    const Q_left = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(-120), "YXZ")),
+      []
+    );
+    const Q_frontPitch45 = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(-45), deg(0), "YXZ")),
+      []
+    );
+    const Q_rightRoll45 = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(-90), deg(45), "YXZ")),
+      []
+    );
+    const Q_leftRolled = useMemo(
+      () => new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-90), deg(90), deg(ROLL_DEG_SIGN), "YXZ")),
+      []
+    );
 
-    const cuts = [0.0, 0.2, 0.4, 0.6, 1.0];
+    // === pages & cuts (pages=10) ===
+    const cuts = [0.0, 0.1, 0.2, 0.3, 0.8, 1.0];
+
+    // rotations arrays
+    const rotAList = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left, Q_left];
+    const rotBList = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_left, Q_leftRolled];
+
     const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+    // small temp objects to reduce allocations
+    const tmpVecA = useRef(new THREE.Vector3());
+    const tmpVecB = useRef(new THREE.Vector3());
+    const tmpDir = useRef(new THREE.Vector3());
 
     useFrame((state: RootState) => {
       if (!modelRef.current) return;
       const u = THREE.MathUtils.clamp(scroll.offset, 0, 1);
 
-      // find current segment index
+      // find current segment index given cuts
       let i = 0;
-      for (let s = 0; s < cuts.length - 1; s++) if (u >= cuts[s] && u <= cuts[s + 1]) { i = s; break; }
+      for (let s = 0; s < cuts.length - 1; s++) {
+        if (u >= cuts[s] && u <= cuts[s + 1]) {
+          i = s;
+          break;
+        }
+      }
 
-      const u0 = cuts[i], u1 = cuts[i + 1];
-      const t = easeInOut((u - u0) / (u1 - u0));
+      const u0 = cuts[i],
+        u1 = cuts[i + 1];
+      const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
 
-      const posA = [P0, P1, P2, P3][i] ?? P3;
-      const posB = [P1, P2, P3, P4][i] ?? P4;
-      const rotA = [Q_left, Q_frontPitch45, Q_rightRoll45, Q_left][i] ?? Q_left;
-      const rotB = [Q_frontPitch45, Q_rightRoll45, Q_left, Q_leftRolled][i] ?? Q_leftRolled;
+      const posA = [P0, P1, P2, P3, P3][i] ?? P3;
+      const posB = [P1, P2, P3, P3, P4][i] ?? P4;
+
+      const rotA = rotAList[i] ?? Q_left;
+      const rotB = rotBList[i] ?? Q_left;
 
       modelRef.current.position.copy(lerpVec3(posA, posB, t));
       modelRef.current.quaternion.copy(slerpQuat(rotA, rotB, t));
+
+      // cap rotation (single lookup cached)
+      if (!capRef.current && modelRef.current) {
+        capRef.current = modelRef.current.getObjectByName("cap_1") || null;
+      }
+      if (capRef.current) {
+        capRef.current.rotation.z = u * Math.PI * 2;
+      }
+
+      // cache shell objects once
+      if (modelRef.current) {
+        modelRef.current.updateMatrixWorld(true);
+        for (const name of shellNames) {
+          if (!shells.current[name]) {
+            const ref = modelRef.current.getObjectByName(name) || null;
+            if (ref) {
+              shells.current[name] = {
+                ref,
+                parent: ref.parent || null,
+                baseLocalPos: ref.position.clone(),
+                baseScale: ref.scale.clone(),
+              };
+            }
+          }
+        }
+      }
+
+      // ----------------------------
+      // Shell animation: updated behavior per your request:
+      // - scale -> 0 BY the start of section 3 (u <= 0.2)
+      // - hidden through middle block (u in (0.2, 0.8))
+      // - reappear (scale easing in) starting at u >= 0.8
+      // ----------------------------
+      for (const name in shells.current) {
+        const data = shells.current[name];
+        if (!data || !data.ref || !data.parent) continue;
+
+        data.parent.updateMatrixWorld(true);
+
+        // convert base local pos to world (reuse tmpVecA)
+        tmpVecA.current.copy(data.baseLocalPos);
+        data.parent.localToWorld(tmpVecA.current);
+
+        // model world pos (reuse tmpVecB)
+        modelRef.current.getWorldPosition(tmpVecB.current);
+
+        // direction from model to base world pos
+        tmpDir.current.copy(tmpVecA.current).sub(tmpVecB.current).normalize();
+
+        const MAX_WORLD_OFFSET = 0.5;
+
+        // NEW scaling logic
+        let scaleFactor = 1;
+        let travel = 0;
+
+        if (u <= 0.2) {
+          // scale down to 0 by u=0.2
+          const p = easeInOut(THREE.MathUtils.clamp(u / 0.2, 0, 1));
+          scaleFactor = 1 - p; // 1 -> 0
+          travel = p; // optional: keep travel while scaling out
+        } else if (u < 0.8) {
+          // fully hidden through the middle block
+          scaleFactor = 0;
+          travel = 0; // no travel while hidden
+        } else {
+          // reappear starting at u=0.8, scale from 0 -> 1 across 0.8..1.0
+          const p = easeInOut(THREE.MathUtils.clamp((u - 0.8) / 0.2, 0, 1));
+          scaleFactor = p; // 0 -> 1
+          travel = 1 - p; // inverse travel while scaling in, optional
+        }
+
+        // compute target world and convert to local (re-using tmpVecA/tmpVecB)
+        tmpVecA.current.copy(tmpVecA.current).add(tmpDir.current.multiplyScalar(MAX_WORLD_OFFSET * travel));
+        const targetLocal = data.parent.worldToLocal(tmpVecB.current.copy(tmpVecA.current));
+
+        data.ref.position.copy(targetLocal);
+        // apply scale (use baseScale multiplied)
+        data.ref.scale.copy(data.baseScale.clone().multiplyScalar(scaleFactor));
+        // visibility threshold when effectively zero
+        data.ref.visible = scaleFactor > 0.001;
+        data.ref.updateMatrixWorld();
+      }
     });
 
     return (
@@ -172,6 +322,7 @@ export default function ModelViewer(): JSX.Element {
 
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
+      {/* NOTE: pages set to 10 (original was 5) */}
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
         <color attach="background" args={["#0a0a0a"]} />
 
@@ -188,16 +339,16 @@ export default function ModelViewer(): JSX.Element {
 
         <Environment preset="studio" />
 
-        <ScrollControls pages={5} damping={0.3}>
+        <ScrollControls pages={10} damping={0.3}>
           {/* 3D content controlled by scroll */}
           <Suspense fallback={<Html center style={{ color: "#fff" }}>Loading model…</Html>}>
             <SceneRig />
           </Suspense>
 
-          {/* HTML overlay sections (full-screen each, transparent to keep model visible) */}
+          {/* HTML overlay sections (10 full-screen sections) */}
           <Scroll html>
             <div className="relative z-20 w-screen pointer-events-none">
-
+              {/* Section 1 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <h1 className="text-5xl font-bold mb-4">Scroll Down to Begin</h1>
@@ -207,6 +358,7 @@ export default function ModelViewer(): JSX.Element {
                 </div>
               </section>
 
+              {/* Section 2 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <h2 className="text-4xl font-semibold mb-4">The model is moving...</h2>
@@ -214,12 +366,27 @@ export default function ModelViewer(): JSX.Element {
                 </div>
               </section>
 
+              {/* Section 3 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">...along the choreographed beats...</p>
                 </div>
               </section>
 
+              {/* Inserted 5 new sections where rotation holds steady (pages 4..8) */}
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <section
+                  key={`inserted-${idx}`}
+                  className="w-screen h-screen flex items-center justify-center p-8"
+                >
+                  <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                    <h3 className="text-3xl font-medium mb-3">Extended section {idx + 1}</h3>
+                    <p className="opacity-80">Rotation state is held steady across these slides.</p>
+                  </div>
+                </section>
+              ))}
+
+              {/* Final original sections (now pages 9 and 10) */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">...ending with a vertical reveal.</p>
