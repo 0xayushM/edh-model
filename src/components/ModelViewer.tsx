@@ -159,13 +159,38 @@ export default function ModelViewer(): JSX.Element {
       }
     >>({});
 
-    // Global opacity fade support: cache materials and their base opacity
-    type MatEntry = { mesh: THREE.Mesh; baseOpacity: number[] };
-    const modelMatEntries = useRef<MatEntry[]>([]);
+    // Names of objects to fade across sections
+    const fadeTargetNames = useMemo(
+      () => [
+        "cap_1",
+        "gear_1",
+        "gear_3_shaft",
+        "gear_3_disc_1",
+        "gear_3_disc_2",
+        "gear_3_disc_3",
+        "gear_3_disc_4",
+        "gear_5",
+        "gear_6",
+        "gear_6_1",
+        "gear_6_2",
+        "gear_6_3",
+        "gear_7",
+        "gear_8",
+        "shell_2",
+        "shell_gear",
+        "gear_10",
+        "gear_12",
+      ],
+      []
+    );
+    // Caches for targeted fade
+    const fadeMeshEntries = useRef<{ mesh: THREE.Mesh; baseOpacity: number[] }[]>([]);
+    const processedMeshUUIDs = useRef<Set<string>>(new Set());
+    const cachedTargetNames = useRef<Set<string>>(new Set());
 
     // final reveal height (tune for your camera)
     const FINAL_Y = 1.7;
-    const ROLL_DEG_SIGN = 270; // try -90 if the roll looks inverted for EDHWay
+    const ROLL_DEG_SIGN = -90;
 
     // Positions (kept near camera)
     const P0 = useMemo(() => new THREE.Vector3(0, 0, 0), []);
@@ -245,23 +270,37 @@ export default function ModelViewer(): JSX.Element {
         capRef.current.rotation.z = u * Math.PI * 2;
       }
 
-      // Cache model mesh materials once for global opacity fade
-      if (modelRef.current && modelMatEntries.current.length === 0) {
-        modelRef.current.traverse((child: any) => {
-          if (child && child.isMesh) {
-            const mesh = child as THREE.Mesh;
-            const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-            const baseOpacity = mats.map((m: any) => (typeof m?.opacity === 'number' ? m.opacity : 1));
-            modelMatEntries.current.push({ mesh, baseOpacity });
+      // Cache target objects' meshes and clone their materials once (targeted fade only)
+      if (modelRef.current) {
+        for (const name of fadeTargetNames) {
+          if (cachedTargetNames.current.has(name)) continue;
+          const ref = modelRef.current.getObjectByName(name);
+          if (ref) {
+            ref.traverse((child: any) => {
+              if (child && child.isMesh) {
+                const mesh = child as THREE.Mesh;
+                if (processedMeshUUIDs.current.has(mesh.uuid)) return;
+                const mats = Array.isArray((mesh as any).material)
+                  ? (mesh as any).material
+                  : [(mesh as any).material];
+                // Clone materials to avoid affecting shared materials used by other parts of the model
+                const cloned = mats.map((m: any) => (m?.isMaterial ? m.clone() : m));
+                (mesh as any).material = Array.isArray((mesh as any).material) ? cloned : cloned[0];
+                const baseOpacity = cloned.map((m: any) => (typeof m?.opacity === 'number' ? m.opacity : 1));
+                fadeMeshEntries.current.push({ mesh, baseOpacity });
+                processedMeshUUIDs.current.add(mesh.uuid);
+              }
+            });
+            cachedTargetNames.current.add(name);
           }
-        });
+        }
       }
 
-      // Global model opacity fade timeline:
+      // Targeted opacity fade timeline for the specified objects only:
       // - Fade from 1 -> 0.2 across Section 3 (S(2) -> S(3))
       // - Hold at 0.2 across Sections 4–7 (S(3) -> S(7))
       // - Restore from 0.2 -> 1 across Section 8 (S(7) -> S(8))
-      if (modelMatEntries.current.length) {
+      if (fadeMeshEntries.current.length) {
         const s2 = S(2), s3 = S(3), s7 = S(7), s8 = S(8);
         const MIN_ALPHA = 0.2;
         let alpha = 1;
@@ -279,14 +318,14 @@ export default function ModelViewer(): JSX.Element {
           alpha = 1;
         }
 
-        for (const entry of modelMatEntries.current) {
-          const mats = Array.isArray((entry.mesh as any).material)
-            ? (entry.mesh as any).material
-            : [(entry.mesh as any).material];
+        for (const { mesh, baseOpacity } of fadeMeshEntries.current) {
+          const mats = Array.isArray((mesh as any).material)
+            ? (mesh as any).material
+            : [(mesh as any).material];
           mats.forEach((m: any, j: number) => {
             if (!m) return;
             m.transparent = true;
-            const base = entry.baseOpacity[j] ?? 1;
+            const base = baseOpacity[j] ?? 1;
             m.opacity = base * alpha;
           });
         }
