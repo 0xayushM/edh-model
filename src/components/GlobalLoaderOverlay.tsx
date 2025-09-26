@@ -4,12 +4,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useProgress } from "@react-three/drei";
 import AnimatedLoading from "./AnimatedLoading";
 
-/**
- * GlobalLoaderOverlay
- *
- * A top-level loader overlay that tracks Three.js asset loading progress via
- * @react-three/drei's useProgress hook. It fades out once loading completes.
- */
 export default function GlobalLoaderOverlay() {
   const { progress, active } = useProgress();
 
@@ -48,11 +42,11 @@ export default function GlobalLoaderOverlay() {
     <div
       aria-busy={shouldShow}
       aria-live="polite"
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#252423] text-[#ededed]"
+      className="fixed inset-0 z-[9999] flex items-center justify-center gradient-background text-[#EEDFD0]"
       style={{ opacity, transition: "opacity 480ms ease" }}
     >
       <div className="flex flex-col items-center gap-6 px-6">
-        <AnimatedLoading color="#ededed" strokeWidth={2} className="w-[320px] sm:w-[420px]" />
+        <AnimatedLoading color="#EEDFD0" strokeWidth={2} className="w-[320px] sm:w-[420px]" />
       </div>
     </div>
   );

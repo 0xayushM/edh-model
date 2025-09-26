@@ -5,12 +5,13 @@ import React, { JSX, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, Html, ScrollControls, Scroll } from "@react-three/drei";
 import SceneRig from "./SceneRig";
+import Hero from "./Hero";
 
 export default function ModelViewer(): JSX.Element {
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
-        <color attach="background" args={["#252423"]} />
+        {/* <color attach="background" args={['transparent']} /> */}
 
         {/* Lights */}
         <ambientLight intensity={0.6} />
@@ -32,13 +33,8 @@ export default function ModelViewer(): JSX.Element {
 
           {/* HTML overlay sections (11 full-screen sections) */}
           <Scroll html>
-            <div className="relative z-20 w-screen pointer-events-none">
-              {/* Section 1 */}
-              <section className="w-screen h-screen flex p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <h1 className="text-4xl font-semibold mb-4">EDHWay</h1>
-                </div>
-              </section>
+            <div className="relative z-20 w-screen">
+              <Hero />
 
               {/* Section 2 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">

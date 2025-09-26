@@ -29,3 +29,21 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+.gradient-background {
+  background: linear-gradient(298deg,#2e4357,#0c1115,#0c1115,#45666a);
+  background-size: 240% 240%;
+  animation: gradient-animation 24s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
