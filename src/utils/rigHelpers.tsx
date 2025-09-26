@@ -59,7 +59,9 @@ export const Q_360 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-10
 export const Q_rightRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(-500, deg(90), deg(-120), "YXZ"));
 export const Q_leftRolled = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-90), deg(90), deg(ROLL_DEG_SIGN), "YXZ"));
 
-export const Q_leftRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-10), deg(120), deg(-120), "YXZ"));
+export const Q_leftRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-20), deg(120), deg(120), "YXZ"));
+
+export const Q_leftRoll_2 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-20), deg(120), deg(-120), "YXZ"));
 
 export const Q_initial = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(180), 0, 0, "YXZ"));
 export const Q_section1 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(90), deg(0), deg(0), "YXZ"));
@@ -68,5 +70,5 @@ export const Q_section3 = new THREE.Quaternion().setFromEuler(new THREE.Euler(de
 export const Q_section4 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(20), deg(45), "YXZ"));
 export const Q_rotate = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(30), "YXZ"));
 
-export const rotAList = [Q_left, Q_leftRoll45, Q_leftRoll45,  Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_leftRoll45];
-export const rotBList = [Q_leftRoll45, Q_leftRoll45, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_leftRoll45, Q_leftRolled];
+export const rotAList = [Q_left, Q_leftRoll45, Q_leftRoll_2,  Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_leftRoll45];
+export const rotBList = [Q_leftRoll45, Q_leftRoll_2, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_leftRoll45, Q_leftRolled];

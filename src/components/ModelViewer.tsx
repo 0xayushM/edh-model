@@ -10,7 +10,7 @@ export default function ModelViewer(): JSX.Element {
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
-        <color attach="background" args={["#0a0a0a"]} />
+        <color attach="background" args={["#252423"]} />
 
         {/* Lights */}
         <ambientLight intensity={0.6} />
