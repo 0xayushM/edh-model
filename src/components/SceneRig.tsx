@@ -114,7 +114,7 @@ export default function SceneRig(): JSX.Element {
     const sectionMeshUUIDs = new Set<string>();
 
     if (fadeMeshEntries.current.length) {
-      const s1 = S(1), s2 = S(2), s7 = S(7), s8 = S(8);
+      const s1 = S(2), s2 = S(3), s7 = S(7), s8 = S(9);
       const MIN_ALPHA = 0.2;
       let alpha = 1;
       if (u < s1) {
@@ -169,33 +169,51 @@ export default function SceneRig(): JSX.Element {
 
       data.parent.updateMatrixWorld(true);
 
+      // world base position of the shell
       tmpVecA.current.copy(data.baseLocalPos);
       data.parent.localToWorld(tmpVecA.current);
 
+      // model world pos and direction from model -> shell base
       modelRef.current.getWorldPosition(tmpVecB.current);
       tmpDir.current.copy(tmpVecA.current).sub(tmpVecB.current).normalize();
 
       const MAX_WORLD_OFFSET = 5;
 
-      const s3_ = S(2), s4_ = S(3), s8_ = S(8), s10_ = S(10);
+      // New timeline: start scaling DOWN at section 2 (S(2)) and finish by start of section 3 (S(3)).
+      // Reappear window remains S(8) -> S(10) (same as before).
+      const sStartDown = S(1); // begin scale down at start of section 2
+      const sEndDown = S(3);   // reach 0 by start of section 3
+      const sReappearStart = S(8);
+      const sReappearEnd = S(10);
+
       let scaleFactor = 1;
       let travel = 0;
-      if (u <= s3_) {
-        const p_ = easeInOut(THREE.MathUtils.clamp(u / s3_, 0, 1));
+
+      if (u < sStartDown) {
+        // before section 2: full size, no travel
+        scaleFactor = 1;
+        travel = 0;
+      } else if (u < sEndDown) {
+        // during section 2: interpolate 1 -> 0
+        const p_ = easeInOut(THREE.MathUtils.clamp((u - sStartDown) / (sEndDown - sStartDown), 0, 1));
         scaleFactor = 1 - p_;
         travel = p_;
-      } else if (u < s8_) {
+      } else if (u < sReappearStart) {
+        // sections 3..8: hidden
         scaleFactor = 0;
         travel = 0;
-      } else if (u < s10_) {
-        const p_ = easeInOut(THREE.MathUtils.clamp((u - s8_) / (s10_ - s8_), 0, 1));
+      } else if (u < sReappearEnd) {
+        // section 9 window: interpolate 0 -> 1
+        const p_ = easeInOut(THREE.MathUtils.clamp((u - sReappearStart) / (sReappearEnd - sReappearStart), 0, 1));
         scaleFactor = p_;
         travel = 1 - p_;
       } else {
+        // after reassembly: full size
         scaleFactor = 1;
         travel = 0;
       }
 
+      // move shell along radial direction by travel * MAX_WORLD_OFFSET
       tmpVecA.current.copy(tmpVecA.current).add(tmpDir.current.multiplyScalar(MAX_WORLD_OFFSET * travel));
       const targetLocal = data.parent.worldToLocal(tmpVecB.current.copy(tmpVecA.current));
 

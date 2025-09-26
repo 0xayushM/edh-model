@@ -25,8 +25,8 @@ export default function ModelViewer(): JSX.Element {
 
         <Environment preset="studio" />
 
-        <ScrollControls pages={11} damping={0.3}>
-          <Suspense fallback={<Html center style={{ color: "#fff" }}>Loading model…</Html>}>
+        <ScrollControls pages={12} damping={0.3}>
+          <Suspense fallback={null}>
             <SceneRig />
           </Suspense>
 
@@ -34,12 +34,9 @@ export default function ModelViewer(): JSX.Element {
           <Scroll html>
             <div className="relative z-20 w-screen pointer-events-none">
               {/* Section 1 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
+              <section className="w-screen h-screen flex p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <h1 className="text-5xl font-bold mb-4">Scroll Down to Begin</h1>
-                  <p className="opacity-80">
-                    Sections are full-screen overlays; the model continues animating beneath.
-                  </p>
+                  <h1 className="text-4xl font-semibold mb-4">EDHWay</h1>
                 </div>
               </section>
 
@@ -52,6 +49,20 @@ export default function ModelViewer(): JSX.Element {
               </section>
 
               {/* Section 3 */}
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <p className="text-2xl">...along the choreographed beats...</p>
+                </div>
+              </section>
+
+              {/* Section 4 */}
+              <section className="w-screen h-screen flex items-center justify-center p-8">
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <p className="text-2xl">...along the choreographed beats...</p>
+                </div>
+              </section>
+
+              {/* Section 5 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">...along the choreographed beats...</p>
@@ -75,13 +86,6 @@ export default function ModelViewer(): JSX.Element {
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">Shells reassembling...</p>
-                </div>
-              </section>
-
-              {/* Section 10: extra rotation */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">Extra rotation…</p>
                 </div>
               </section>
 
