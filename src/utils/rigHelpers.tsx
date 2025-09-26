@@ -35,12 +35,6 @@ export const fadeTargetNames = [
   "gear_5","gear_6","gear_6_1","gear_6_2","gear_6_3","gear_7","gear_8","shell_2","shell_gear","gear_10","gear_12"
 ];
 
-// per-section lists
-export const fadeSection1 = ["gear_4", "gear_11", "gear_9"];
-export const fadeSection2 = ["gear_2", "gear_11", "gear_9"];
-export const fadeSection3 = ["gear_2", "gear_4", "gear_11"];
-export const fadeSection4 = ["gear_2", "gear_4", "gear_9"];
-
 // positions & rotation placeholders (mirror your original arrays)
 // Keep these exported so SceneRig can pick them by index.
 export const FINAL_POS_Y = FINAL_Y;
@@ -54,13 +48,18 @@ export const P6 = new THREE.Vector3(0.2, -0.7, 1.7);
 export const P7 = new THREE.Vector3(0, 0, 0.5);
 export const PFinal = new THREE.Vector3(0, FINAL_Y, 0);
 
-export const posAList = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P7];
-export const posBList = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P7, PFinal];
+export const posAList = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P2];
+export const posBList = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P2, PFinal];
 
 // Rotations
 export const Q_left = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(-120), "YXZ"));
-export const Q_rightRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, deg(90), deg(45), "YXZ"));
+
+export const Q_360 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-10), deg(-90), deg(-120), "YXZ"));
+
+export const Q_rightRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(-500, deg(90), deg(-120), "YXZ"));
 export const Q_leftRolled = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-90), deg(90), deg(ROLL_DEG_SIGN), "YXZ"));
+
+export const Q_leftRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-10), deg(120), deg(-120), "YXZ"));
 
 export const Q_initial = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(180), 0, 0, "YXZ"));
 export const Q_section1 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(90), deg(0), deg(0), "YXZ"));
@@ -69,5 +68,5 @@ export const Q_section3 = new THREE.Quaternion().setFromEuler(new THREE.Euler(de
 export const Q_section4 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(20), deg(45), "YXZ"));
 export const Q_rotate = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(30), "YXZ"));
 
-export const rotAList = [Q_left, Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left];
-export const rotBList = [Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left, Q_leftRolled];
+export const rotAList = [Q_left, Q_leftRoll45, Q_leftRoll45,  Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_leftRoll45];
+export const rotBList = [Q_leftRoll45, Q_leftRoll45, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_leftRoll45, Q_leftRolled];
