@@ -249,7 +249,7 @@ export default function ModelViewer(): JSX.Element {
     );
 
     const rotAList = [Q_left, Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left];
-    const rotBList = [Q_left,Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left, Q_leftRolled];
+    const rotBList = [Q_left, Q_left, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_rotate, Q_left, Q_leftRolled];
 
     // === pages & cuts (pages=11) ===
     const S = (n: number) => n / 11; // section -> normalized offset
@@ -275,18 +275,53 @@ export default function ModelViewer(): JSX.Element {
         }
       }
 
-      const u0 = cuts[i],
-        u1 = cuts[i + 1];
-      const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
+      // const u0 = cuts[i],
+      //   u1 = cuts[i + 1];
+      // const t = u1 - u0 > 0 ? easeInOut((u - u0) / (u1 - u0)) : 0;
 
+      // const posA = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P7][i] ?? P2;
+      // const posB = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P7, PFinal][i] ?? PFinal;
+
+      // const rotA = rotAList[i] ?? Q_left;
+      // const rotB = rotBList[i] ?? Q_left;
+
+      // modelRef.current.position.copy(lerpVec3(posA, posB, t));
+      // modelRef.current.quaternion.copy(slerpQuat(rotA, rotB, t));
+
+      const u0 = cuts[i];
+      const u1 = cuts[i + 1];
+      const segLen = Math.max(1e-6, u1 - u0);
+      const p = THREE.MathUtils.clamp((u - u0) / segLen, 0, 1);
+
+      // TRANSITION_ZONE controls how much of the segment is spent transitioning.
+      // 0.25 means the model will interpolate in the first 25% of the segment, then hold at the final pose.
+      // Decrease for snappier transitions (e.g. 0.12), increase for slower (e.g. 0.4).
+      const TRANSITION_ZONE = 0.45;
+
+      // map p -> tMapped:
+      // - when p < TRANSITION_ZONE: interpolate smoothly from 0->1 (easeInOut)
+      // - when p >= TRANSITION_ZONE: hold tMapped = 1 (final pose)
+      let tMapped: number;
+      if (p <= 0) {
+        tMapped = 0;
+      } else if (p < TRANSITION_ZONE) {
+        const local = p / TRANSITION_ZONE; // 0..1 over zone
+        tMapped = easeInOut(local);
+      } else {
+        tMapped = 1;
+      }
+
+      // choose positions & rotations for this segment as before
       const posA = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P7][i] ?? P2;
       const posB = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P7, PFinal][i] ?? PFinal;
 
       const rotA = rotAList[i] ?? Q_left;
       const rotB = rotBList[i] ?? Q_left;
 
-      modelRef.current.position.copy(lerpVec3(posA, posB, t));
-      modelRef.current.quaternion.copy(slerpQuat(rotA, rotB, t));
+      // apply the mapped t for both position and rotation
+      modelRef.current.position.copy(lerpVec3(posA, posB, tMapped));
+      modelRef.current.quaternion.copy(slerpQuat(rotA, rotB, tMapped));
+
 
       // cap rotation (single lookup cached)
       if (!capRef.current && modelRef.current) {
