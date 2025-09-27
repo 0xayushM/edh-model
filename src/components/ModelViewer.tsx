@@ -6,10 +6,12 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, Html, ScrollControls, Scroll } from "@react-three/drei";
 import SceneRig from "./SceneRig";
 import Hero from "./Hero";
+import Navbar from "./Navbar";
 
 export default function ModelViewer(): JSX.Element {
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
+      <Navbar />
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
         {/* <color attach="background" args={['transparent']} /> */}
 
