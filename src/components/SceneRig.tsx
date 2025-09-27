@@ -75,7 +75,7 @@ export default function SceneRig(): JSX.Element {
     const u1 = cuts[i + 1];
     const segLen = Math.max(1e-6, u1 - u0);
     const p = THREE.MathUtils.clamp((u - u0) / segLen, 0, 1);
-    const TRANSITION_ZONE = 0.45;
+    const TRANSITION_ZONE = 0.7;
     let tMapped: number;
     if (p <= 0) {
       tMapped = 0;
@@ -114,7 +114,7 @@ export default function SceneRig(): JSX.Element {
     const sectionMeshUUIDs = new Set<string>();
 
     if (fadeMeshEntries.current.length) {
-      const s1 = S(2), s2 = S(3), s7 = S(7), s8 = S(9);
+      const s1 = S(3), s2 = S(4), s7 = S(6), s8 = S(9);
       const MIN_ALPHA = 0.2;
       let alpha = 1;
       if (u < s1) {
@@ -183,8 +183,8 @@ export default function SceneRig(): JSX.Element {
       // Reappear window remains S(8) -> S(10) (same as before).
       const sStartDown = S(1); // begin scale down at start of section 2
       const sEndDown = S(3);   // reach 0 by start of section 3
-      const sReappearStart = S(8);
-      const sReappearEnd = S(10);
+      const sReappearStart = S(7);
+      const sReappearEnd = S(9);
 
       let scaleFactor = 1;
       let travel = 0;
@@ -226,7 +226,7 @@ export default function SceneRig(): JSX.Element {
 
   return (
     <group ref={modelRef}>
-      <GltfModel url="/models/edhway.glb" scale={0.025} />
+      <GltfModel url="/models/edhway1.glb" scale={0.025} />
     </group>
   );
 }

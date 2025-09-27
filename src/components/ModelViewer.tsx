@@ -7,6 +7,11 @@ import { Environment, Html, ScrollControls, Scroll } from "@react-three/drei";
 import SceneRig from "./SceneRig";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
+import Footer from "./Footer";  
+import Gear1 from "./Gear1";
+import Gear2 from "./Gear2";
+import Gear3 from "./Gear3";
+import Gear4 from "./Gear4";
 
 export default function ModelViewer(): JSX.Element {
   return (
@@ -16,11 +21,11 @@ export default function ModelViewer(): JSX.Element {
         {/* <color attach="background" args={['transparent']} /> */}
 
         {/* Lights */}
-        <ambientLight intensity={0.6} />
+        <ambientLight intensity={0.1} />
         <directionalLight
           castShadow
-          position={[4, 8, 4]}
-          intensity={0.9}
+          position={[0, 0, 0]}
+          intensity={0.1}
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
@@ -40,35 +45,30 @@ export default function ModelViewer(): JSX.Element {
 
               {/* Section 2 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <h2 className="text-4xl font-semibold mb-4">The model is moving...</h2>
-                  <p className="opacity-80">Customize this content freely.</p>
-                </div>
+                
               </section>
 
               {/* Section 3 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">...along the choreographed beats...</p>
-                </div>
+                
               </section>
+      
 
               {/* Section 4 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+              <section className="w-screen h-screen flex p-8">
+                <div className="">
                   <p className="text-2xl">...along the choreographed beats...</p>
                 </div>
               </section>
 
               {/* Section 5 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">...along the choreographed beats...</p>
-                </div>
-              </section>
+              <Gear1 />
+              <Gear2 />
+              <Gear3 />
+              <Gear4 />
 
               {/* Inserted 5 new sections where rotation holds steady (pages 4..8) */}
-              {Array.from({ length: 5 }).map((_, idx) => (
+              {Array.from({ length: 1 }).map((_, idx) => (
                 <section
                   key={`inserted-${idx}`}
                   className="w-screen h-screen flex items-center justify-center p-8"
@@ -87,12 +87,13 @@ export default function ModelViewer(): JSX.Element {
                 </div>
               </section>
 
-              {/* Section 11: final reveal */}
+              {/* Section 10: final reveal */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">...ending with a vertical reveal.</p>
                 </div>
               </section>
+              {/* <Footer /> */}
             </div>
           </Scroll>
         </ScrollControls>
