@@ -38,7 +38,7 @@ export const fadeTargetNames = [
 // positions & rotation placeholders (mirror your original arrays)
 // Keep these exported so SceneRig can pick them by index.
 export const FINAL_POS_Y = FINAL_Y;
-export const P0 = new THREE.Vector3(0, 0, -5);
+export const P0 = new THREE.Vector3(0, 6, -10);
 export const P1 = new THREE.Vector3(0, 0, 0);
 export const P2 = new THREE.Vector3(0, 0, 0);
 export const P3 = new THREE.Vector3(-0.5, -0.75, 1.7);
@@ -63,7 +63,7 @@ export const Q_leftRoll45 = new THREE.Quaternion().setFromEuler(new THREE.Euler(
 
 export const Q_leftRoll_2 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-20), deg(120), deg(-120), "YXZ"));
 
-export const Q_initial = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(180), 0, 0, "YXZ"));
+export const Q_initial = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(180), deg(-90), 0, "YXZ"));
 export const Q_section1 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(90), deg(0), deg(0), "YXZ"));
 export const Q_section2 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(130), deg(40), deg(45), "YXZ"));
 export const Q_section3 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(50), deg(120), deg(-120), "YXZ"));

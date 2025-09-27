@@ -1,23 +1,10 @@
 import React from 'react';
 import SplitText from '@/ui/SplitText';
-import Beams from '@/ui/Beams';
 
 const Hero = () => {
 
   return (
     <>
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}>
-        <Beams
-          beamWidth={2}
-          beamHeight={15}
-          beamNumber={12}
-          lightColor="#c3b4a0"
-          speed={2}
-          noiseIntensity={1.75}
-          scale={0.2}
-          rotation={0}
-        />
-      </div>
     <div id='home' className='w-full min-h-screen relative'>
       <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-full flex flex-col justify-center items-center'>
         <SplitText
