@@ -2,7 +2,7 @@
 
 :root {
   --background: #0E0E0E;
-  --foreground: #ebe3d7;
+  --foreground: #DBC3AE;
   --tertiary: #EB5939;
   --secondary: #2a2a2a;
   --tertiary-1: #ff5d38;
@@ -59,17 +59,14 @@ html, body {
 
 .gradient-background {
   background: linear-gradient(
-  298deg,
-  #2e4357 0%,
-  #263748 15%,
-  #1e2d3b 30%,
-  #161e28 45%,
-  #11171d 60%,
-  #12191f 75%,
-  #1e2c2e 85%,
-  #273a3d 92%,
-  #365456 97%,
-  #45666a 100%
+    298deg,
+    #252423 0%,
+    #1c1b1b 20%,
+    #121212 40%,
+    black 50%,
+    #121212 60%,
+    #1c1b1b 80%,
+    #252423 100%
   );
   background-size: 240% 240%;
   animation: gradient-animation 24s ease infinite;
