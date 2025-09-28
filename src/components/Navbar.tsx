@@ -64,11 +64,11 @@ const Navbar = () => {
   return (
     <nav className='fixed top-0 w-full z-50'>
       <div className='flex items-center justify-between w-full p-4 md:px-16 md:pb-0 md:pt-12'>
-        <Link href="#home" className='avalon-bold text-xl md:text-2xl'>
+        <Link href="#home" className='archimoto-bold text-xl md:text-2xl'>
           EDHWay
         </Link>
         
-        <div className='hidden md:flex font-geist-sans text-sm avalon-bold tracking-[0.2rem] flex-col items-end uppercase'>
+        <div className='hidden md:flex font-geist-sans text-sm archimoto-bold tracking-[0.2rem] flex-col items-end uppercase'>
           {navLinks}
         </div>
 

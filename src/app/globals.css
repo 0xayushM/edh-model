@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 :root {
   --background: #0E0E0E;
   --foreground: #ebe3d7;
@@ -13,18 +12,26 @@
 }
 
 @font-face {
-  font-family: 'Avalon';
+  font-family: 'Archimoto';
   font-style: normal;
   font-weight: normal;
-  src: url('/fonts/Avalon.ttf') format('truetype');
+  src: url('/fonts/ArchimotoV01-Regular.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Avalon';
+  font-family: 'Archimoto';
   font-style: normal;
   font-weight: bold;
-  src: url('/fonts/AvalonBold.ttf') format('truetype');
+  src: url('/fonts/ArchimotoV01-Black.otf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Nebulax';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/Nebulax.ttf') format('truetype');
+}
+
 
 @theme inline {
   --color-background: var(--background);
@@ -43,7 +50,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 html, body {
@@ -69,16 +75,6 @@ html, body {
   animation: gradient-animation 24s ease infinite;
 }
 
-/* .gradient-background {
-  background-color: #2e4357;
-    /* Subtle noise overlay using inline SVG (repeatable tile) 
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 100px 100px;
-    background-blend-mode: normal;
-} */
-
 @keyframes gradient-animation {
   0% {
     background-position: 0% 50%;
@@ -91,13 +87,17 @@ html, body {
   }
 }
 
-.avalon {
-  font-family: 'Avalon', sans-serif;
+.archimoto {
+  font-family: 'Archimoto', sans-serif;
 }
 
-.avalon-bold {
-  font-family: 'Avalon', sans-serif;
+.archimoto-bold {
+  font-family: 'Archimoto', sans-serif;
   font-weight: bold;
+}
+
+.nebulax {
+  font-family: 'Nebulax', sans-serif;
 }
 
 .loader-bg {

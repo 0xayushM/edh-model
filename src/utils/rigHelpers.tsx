@@ -38,7 +38,7 @@ export const fadeTargetNames = [
 // positions & rotation placeholders (mirror your original arrays)
 // Keep these exported so SceneRig can pick them by index.
 export const FINAL_POS_Y = FINAL_Y;
-export const P0 = new THREE.Vector3(0.75, 0, -0.5);
+export const P0 = new THREE.Vector3(0, 0, -0.5);
 export const P1 = new THREE.Vector3(0, 0, 0);
 export const P2 = new THREE.Vector3(0, 0, 0);
 export const P3 = new THREE.Vector3(-0.5, -0.75, 1.7);
