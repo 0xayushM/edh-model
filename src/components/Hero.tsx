@@ -1,9 +1,11 @@
 import React from 'react';;
+import Navbar from './Navbar';
 
 const Hero = () => {
 
   return (
     <>
+      <Navbar />
       <div id='home' className='relative overflow-hidden w-full h-screen flex flex-col md:flex-row items-center justify-between'>
         <video
           className='pointer-events-none absolute inset-0 z-0 w-full h-full object-cover'

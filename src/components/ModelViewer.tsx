@@ -1,22 +1,19 @@
-// components/ModelViewer.tsx
 "use client";
 
 import React, { JSX, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Environment, Html, ScrollControls, Scroll } from "@react-three/drei";
+import { Environment, ScrollControls, Scroll } from "@react-three/drei";
 import SceneRig from "./SceneRig";
 import Hero from "./Hero";
-import Navbar from "./Navbar";
-import Footer from "./Footer";  
 import Gear1 from "./Gear1";
 import Gear2 from "./Gear2";
 import Gear3 from "./Gear3";
 import Gear4 from "./Gear4";
+import About from "./About";
 
 export default function ModelViewer(): JSX.Element {
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
-      <Navbar />
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
         {/* <color attach="background" args={['transparent']} /> */}
 
@@ -44,9 +41,7 @@ export default function ModelViewer(): JSX.Element {
               <Hero />
 
               {/* Section 2 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-                
-              </section>
+              <About/>
 
               {/* Section 3 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
