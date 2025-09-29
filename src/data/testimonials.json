@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "author": "Dr. Alisha Hayes",
+    "company": "InnovateLogistics Inc.",
+    "title": "COO",
+    "quote": "We've seen a 90% reduction in manual data entry and a significant boost in accuracy. Their team's AI expertise and commitment to our success were exceptional.",
+    "imageUrl": "/testimonials/mock_image1.jpeg"
+  },
+  {
+    "id": 2,
+    "author": "Mark Olsen",
+    "company": "RetailFuture Corp.",
+    "title": "Head of Strategy",
+    "quote": "Our inventory management is now data-driven, and marketing campaigns are more targeted and effective than ever.",
+    "imageUrl": "/testimonials/mock_image5.jpeg"
+  },
+  {
+    "id": 3,
+    "author": "Priya Sharma",
+    "company": "SupportWise Solutions",
+    "title": "VP of Customer Experience",
+    "quote": "Implementing the AI chatbot has transformed our customer support. It handles over 70% of inquiries instantly, 24/7, allowing our human agents to focus on complex issues.",
+    "imageUrl": "/testimonials/mock_image3.jpeg"
+  },
+  {
+    "id": 4,
+    "author": "David Lee",
+    "company": "ContentSpark Agency",
+    "title": "CEO",
+    "quote": "The Generative AI suite built for us has supercharged our content creation. Our team can now produce high-quality drafts for articles and social media at triple the speed.",
+    "imageUrl": "/testimonials/mock_image4.png"
+  }
+]

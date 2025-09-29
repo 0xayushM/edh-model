@@ -10,7 +10,7 @@ const Philosophy = () => {
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="Our Philosophy"
-          className="w-4/5 uppercase p-2 md:pb-8 text-foreground text-sm md:text-sm font-light text-start uppercase tracking-[0.4em]"
+          className="w-4/5 uppercase p-2 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
           delay={100}
           duration={0.6}
           ease="power3.out"

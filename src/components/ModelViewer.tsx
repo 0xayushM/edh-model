@@ -11,6 +11,7 @@ import Gear3 from "./Gear3";
 import Gear4 from "./Gear4";
 import About from "./About";
 import Philosophy from "./Philosophy";
+import Testimonials from "./Testimonials";
 
 export default function ModelViewer(): JSX.Element {
   return (
@@ -31,7 +32,7 @@ export default function ModelViewer(): JSX.Element {
 
         <Environment preset="studio" />
 
-        <ScrollControls pages={12} damping={0.3}>
+        <ScrollControls pages={13} damping={0.3}>
           <Suspense fallback={null}>
             <SceneRig />
           </Suspense>
@@ -88,8 +89,9 @@ export default function ModelViewer(): JSX.Element {
               </section>
 
               <Philosophy/> {/* Section 12 */}
+              <Testimonials/> {/* Section 13 */}
 
-              {/* <Footer /> */}
+              
             </div>
           </Scroll>
         </ScrollControls>
