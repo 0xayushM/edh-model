@@ -6,7 +6,7 @@ const Philosophy = () => {
   const philosophyData = philosophy;
 
   return (
-    <section id="projects" className="min-h-screen bg-gradient-to-b from-black via-black to-background flex flex-col items-center justify-center">
+    <section id="philosophy" className="min-h-screen bg-gradient-to-b from-black/0 via-black/70 pt-10 to-background/80 backdrop-blur-md flex flex-col items-center justify-center overflow-hidden -mt-px">
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="Our Philosophy"

@@ -26,7 +26,7 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="min-h-screen bg-gradient-to-b from-black/80 via-black/80 to-background/80 backdrop-blur-md flex flex-col items-center justify-center m-0">
+    <section id="testimonials" className="min-h-screen bg-gradient-to-b from-black/80 via-black/80 to-background/80 backdrop-blur-md flex flex-col items-center justify-center m-0 overflow-hidden">
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="What they said"

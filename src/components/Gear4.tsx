@@ -14,8 +14,8 @@ const Gear4 = () => {
           <h1 className='text-tertiary-4 text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>
             Growth Frameworks
           </h1>
-          <hr className="w-8/10 h-[2px] bg-tertiary-4 my-4" />
-          <p className='text-xl md:text-xl tracking-tight archimoto transition-colors duration-100 pr-4 group-hover:text-background'>
+          <hr className="w-full h-[2px] bg-tertiary-4 my-4" />
+          <p className='text-xl md:text-xl text-justify hyphens-auto break-words tracking-tight archimoto transition-colors duration-100 group-hover:text-background'>
           Many businesses rely on gut feeling for growth decisions. EDHWay brings clarity with data dashboards, performance analytics, and conversion tracking giving you the power to make smarter, faster decisions and scale without chaos.
           </p>
         </div>

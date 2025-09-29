@@ -11,8 +11,8 @@ const Gear2 = () => {
           <h1 className='text-tertiary-2 text-3xl md:text-4xl nebulax uppercase w-full leading-[0.8] tracking-tight'>
             Offline Branding
           </h1>
-          <hr className="w-2/3 h-[2px] bg-tertiary my-4" />
-          <p className='text-xl md:text-xl tracking-tight archimoto transition-colors duration-100 pr-4 group-hover:text-background'>
+          <hr className="w-full h-[2px] bg-tertiary my-4" />
+          <p className='text-xl md:text-xl text-justify hyphens-auto break-words tracking-tight archimoto transition-colors duration-100 group-hover:text-background'>
             Fragmented branding confuses potential customers. EDHWay creates a seamless experience — from digital ads to in-person events, from flyers to social media. This ensures your audience sees one strong, consistent message everywhere, building trust and recall faster.
           </p>
         </div>

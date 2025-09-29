@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const sectionIds = ['home', 'about', 'services', 'contact'];
+  const sectionIds = ['home', 'about', 'philosophy', 'contact'];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +56,7 @@ const Navbar = () => {
   const navLinks = (
     <>
       <Link href="#about" className={`${activeSection === 'about' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>About</Link>
-      <Link href="#services" className={`${activeSection === 'services' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>Services</Link>
+      <Link href="#philosophy" className={`${activeSection === 'philosophy' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>Philosophy</Link>
       <Link href="#contact" className={`${activeSection === 'contact' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>Contact</Link>
     </>
   );

@@ -54,7 +54,6 @@ export default function ModelViewer(): JSX.Element {
               {/* Section 4 */}
               <section className="w-screen h-screen flex p-8">
                 <div className="">
-                  <p className="text-2xl">...along the choreographed beats...</p>
                 </div>
               </section>
 
@@ -90,7 +89,7 @@ export default function ModelViewer(): JSX.Element {
               <Philosophy/> {/* Section 12 */}
               <Testimonials/> {/* Section 13 */}
               <Contact/> {/* Section 14 */}
-              
+
             </div>
           </Scroll>
         </ScrollControls>

@@ -14,8 +14,8 @@ const Gear3 = () => {
           <h1 className='text-tertiary-3 text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>
             Client Retention
           </h1>
-          <hr className="w-2/3 h-[2px] bg-tertiary-3 my-4" />
-          <p className='text-xl md:text-xl tracking-tight archimoto transition-colors duration-100 pr-4 group-hover:text-background'>
+          <hr className="w-full h-[2px] bg-tertiary-3 my-4" />
+          <p className='text-xl md:text-xl text-justify hyphens-auto break-words tracking-tight archimoto transition-colors duration-100 group-hover:text-background'>
             Businesses often miss revenue because they don’t follow up. EDHWay deploys automated CRM reminders, loyalty programs, and post-sale follow-ups - so your customers keep coming back, turning one-time buyers into long-term loyalists.
           </p>
         </div>

@@ -5,7 +5,7 @@ import CountUp from '@/ui/CountUp';
 const About = () => {
 
     return (
-        <section id="projects" className="min-h-screen bg-foreground/80 backdrop-blur-md flex flex-col items-center justify-center">
+        <section id="about" className="min-h-screen bg-foreground/80 backdrop-blur-md flex flex-col items-center justify-center">
             <div className='flex flex-col items-center justify-center h-full w-full'>
                 <SplitText
                     text="About Us"

@@ -14,8 +14,8 @@ const Gear1 = () => {
           <h1 className='text-tertiary-1 text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>
             Lead Generation
           </h1>
-          <hr className="w-9/10 h-[2px] bg-tertiary my-4" />
-          <p className='text-xl md:text-xl tracking-tight archimoto transition-colors duration-100 group-hover:text-background'>
+          <hr className="w-full h-[2px] bg-tertiary my-4" />
+          <p className='text-xl md:text-xl text-justify hyphens-auto break-words tracking-tight archimoto transition-colors duration-100 group-hover:text-background'>
             Most businesses struggle to turn visibility into consistent leads. EDHWay solves this by combining targeted digital campaigns, optimized online presence, and real-time tracking to ensure every marketing dollar brings measurable leads. Your pipeline stays full, and your team focuses on what they do best - closing deals.
           </p>
         </div>
