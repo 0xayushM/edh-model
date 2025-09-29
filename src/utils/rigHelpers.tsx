@@ -69,7 +69,7 @@ export const Q_section1 = new THREE.Quaternion().setFromEuler(new THREE.Euler(de
 export const Q_section2 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(120), deg(40), deg(45), "YXZ"));
 export const Q_section3 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(60), deg(140), deg(-120), "YXZ"));
 export const Q_section4 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(60), deg(45), "YXZ"));
-export const Q_rotate = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(30), "YXZ"));
+export const Q_rotate = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(10), deg(90), deg(240), "YXZ"));
 export const Q_final = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(200), deg(-120), "YXZ"));
 
 export const rotAList = [Q_initial, Q_left, Q_leftRoll45,  Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_leftRoll45, Q_leftRolled, Q_left];

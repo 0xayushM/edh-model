@@ -6,7 +6,7 @@ const Gear4 = () => {
   return (
     <>
       <section className="w-screen h-screen flex p-8">
-        <div id='home' className='w-full px-5 lg:px-24 pt-40 flex flex-col items-start justify-center'>
+        <div id='home' className='w-full px-5 lg:px-24 pt-60 flex flex-col items-start justify-center'>
           <div className='items-right p-4 md:py-8 md:px-12 md:w-4/7 '>
             <h1 className='text-tertiary text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>
               The Innovation Inertia:
