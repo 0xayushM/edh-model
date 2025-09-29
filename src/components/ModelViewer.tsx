@@ -90,7 +90,7 @@ export default function ModelViewer(): JSX.Element {
               <Philosophy/> {/* Section 12 */}
               <Testimonials/> {/* Section 13 */}
               <Contact/> {/* Section 14 */}
-
+              
             </div>
           </Scroll>
         </ScrollControls>
