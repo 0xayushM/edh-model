@@ -16,7 +16,7 @@ export const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(
 
 // Finite-page helper (same as before)
 export const S = (n: number) => n / 11;
-export const cuts = [0.0, S(1), S(2), S(3), S(4), S(5), S(6), S(7), S(8), S(9), 1.0];
+export const cuts = [0.0, S(1), S(2), S(3), S(4), S(5), S(6), S(7), S(8), S(9), S(10), 1.0];
 
 // constants used by SceneRig
 export const FINAL_Y = 2;
@@ -46,10 +46,10 @@ export const P4 = new THREE.Vector3(0.4, -0.4, 1.5);
 export const P5 = new THREE.Vector3(-0.7, 0.2, 1.7);
 export const P6 = new THREE.Vector3(0.2, -0.7, 1.7);
 export const P7 = new THREE.Vector3(0, 0, 0.5);
-export const PFinal = new THREE.Vector3(0, FINAL_Y, 0);
+export const P8 = new THREE.Vector3(0, FINAL_Y, 0);
 
-export const posAList = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2];
-export const posBList = [P1, P2, P2, P3, P4, P5, P6, P2, P2, PFinal];
+export const posAList = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P2, P8];
+export const posBList = [P1, P2, P2, P3, P4, P5, P6, P2, P2, P8, P8];
 
 // Rotations
 export const Q_left = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(-120), "YXZ"));
@@ -70,5 +70,5 @@ export const Q_section3 = new THREE.Quaternion().setFromEuler(new THREE.Euler(de
 export const Q_section4 = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(-60), deg(60), deg(45), "YXZ"));
 export const Q_rotate = new THREE.Quaternion().setFromEuler(new THREE.Euler(deg(0), deg(90), deg(30), "YXZ"));
 
-export const rotAList = [Q_initial, Q_left, Q_leftRoll45,  Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_leftRoll45];
-export const rotBList = [Q_left, Q_leftRoll45, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_leftRoll45, Q_leftRolled];
+export const rotAList = [Q_initial, Q_left, Q_leftRoll45,  Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_leftRoll45, Q_leftRolled];
+export const rotBList = [Q_left, Q_leftRoll45, Q_rightRoll45, Q_section1, Q_section2, Q_section3, Q_section4, Q_rotate, Q_leftRoll45, Q_leftRolled, Q_leftRolled];

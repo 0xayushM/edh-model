@@ -10,6 +10,7 @@ import Gear2 from "./Gear2";
 import Gear3 from "./Gear3";
 import Gear4 from "./Gear4";
 import About from "./About";
+import Philosophy from "./Philosophy";
 
 export default function ModelViewer(): JSX.Element {
   return (
@@ -41,13 +42,13 @@ export default function ModelViewer(): JSX.Element {
               <Hero />
 
               {/* Section 2 */}
-              <About/>
+              <About />
 
               {/* Section 3 */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
-                
+
               </section>
-      
+
 
               {/* Section 4 */}
               <section className="w-screen h-screen flex p-8">
@@ -56,38 +57,38 @@ export default function ModelViewer(): JSX.Element {
                 </div>
               </section>
 
-              {/* Section 5 */}
-              <Gear1 />
-              <Gear2 />
-              <Gear3 />
-              <Gear4 />
 
-              {/* Inserted 5 new sections where rotation holds steady (pages 4..8) */}
-              {Array.from({ length: 1 }).map((_, idx) => (
-                <section
-                  key={`inserted-${idx}`}
-                  className="w-screen h-screen flex items-center justify-center p-8"
-                >
-                  <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                    <h3 className="text-3xl font-medium mb-3">Extended section {idx + 1}</h3>
-                    <p className="opacity-80">Rotation state is held steady across these slides.</p>
-                  </div>
-                </section>
-              ))}
+              <Gear1 /> {/* Section 5 */}
+              <Gear2 /> {/* Section 6 */}
+              <Gear3 /> {/* Section 7 */}
+              <Gear4 /> {/* Section 8 */}
 
-              {/* Section 9: shells reassemble */}
+              {/* Section 9 */}
+              <section
+                className="w-screen h-screen flex items-center justify-center p-8"
+              >
+                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
+                  <h3 className="text-3xl font-medium mb-3">Extended section </h3>
+                  <p className="opacity-80">Rotation state is held steady across these slides.</p>
+                </div>
+              </section>
+
+              {/* Section 10: shells reassemble */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">Shells reassembling...</p>
                 </div>
               </section>
 
-              {/* Section 10: final reveal */}
+              {/* Section 11: final reveal */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
                   <p className="text-2xl">...ending with a vertical reveal.</p>
                 </div>
               </section>
+
+              <Philosophy/> {/* Section 12 */}
+
               {/* <Footer /> */}
             </div>
           </Scroll>

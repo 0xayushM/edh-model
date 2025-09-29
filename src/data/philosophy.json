@@ -1,0 +1,32 @@
+[
+    {
+        "id":1,
+        "name": "Excellence",
+        "description": "We foster cultures that energize performance while protecting wellbeing and fulfillment.",
+        "points": [
+            "Employee engagement programs",
+            "Work-life integration support",
+            "Positive organizational culture"
+        ]
+    },
+    {
+        "id":2,
+        "name": "Dharma",
+        "description": "We align strategy with purpose, doing right by customers, employees, and communities.",
+        "points":[
+            "Ethical business practices",
+            "Stakeholder value creation",
+            "Long-term sustainability focus"
+        ]
+    },
+    {
+        "id":3,
+        "name":"Happiness",
+        "description":"We foster cultures that energize performance while protecting wellbeing and fulfillment.",
+       "points":[
+            "Employee engagement programs",
+            "Work-life integration support",
+            "Positive organizational culture"
+       ]
+    }
+]
