@@ -11,7 +11,7 @@ interface GltfModelProps {
 }
 
 export function GltfModel({
-  url = "/models/edhway1.glb",
+  url = "/models/edhway.glb",
   scale = 0.1,
   position = [0.0, 0.0, 0.0],
   rotation = [0, 0, 0],
@@ -91,6 +91,6 @@ export function GltfModel({
 }
 
 // preload hint (call once when module is imported)
-useGLTF.preload("/models/edhway1.glb");
+useGLTF.preload("/models/edhway.glb");
 
 export default GltfModel;

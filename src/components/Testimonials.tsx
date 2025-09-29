@@ -61,7 +61,7 @@ const Testimonials: React.FC = () => {
                   </h2>
                 </div>
                 <div className="testimonial-author-details">
-                  <p className="text-md pb-2 sm:text-lg nebulax text-tertiary text-end">- {activeTestimonial.author}</p>
+                  <p className="text-md pb-2 sm:text-lg nebulax text-[#7a451d] text-end">- {activeTestimonial.author}</p>
                 </div>
               </motion.div>
             </AnimatePresence>

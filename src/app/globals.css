@@ -4,7 +4,7 @@
   --background: #0E0E0E;
   --foreground: #DBC3AE;
   --tertiary: #C08457;
-  --secondary: #2a2a2a;
+  --secondary: hsl(0, 0%, 16%);
 }
 
 @font-face {
