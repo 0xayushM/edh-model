@@ -69,22 +69,21 @@ export default function ModelViewer(): JSX.Element {
                 className="w-screen h-screen flex items-center justify-center p-8"
               >
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <h3 className="text-3xl font-medium mb-3">Extended section </h3>
-                  <p className="opacity-80">Rotation state is held steady across these slides.</p>
+                  
                 </div>
               </section>
 
               {/* Section 10: shells reassemble */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">Shells reassembling...</p>
+                  
                 </div>
               </section>
 
               {/* Section 11: final reveal */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  <p className="text-2xl">...ending with a vertical reveal.</p>
+                  
                 </div>
               </section>
  
