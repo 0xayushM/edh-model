@@ -4,7 +4,7 @@ import SplitText from '@/ui/SplitText';
 const Contact = () => {
 
   return (
-    <section id="contact" className="min-h-screen flex flex-col items-center justify-center">
+    <section id="contact" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-background/80 via-background/80 to-background/80 backdrop-blur-md">
       <div className='flex flex-col items-center justify-start h-full w-full'>
         <SplitText
           text="Contact Us"

@@ -26,11 +26,11 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="min-h-screen bg-gradient-to-b from-black/80 via-black/80 to-background/80 backdrop-blur-md flex flex-col items-center justify-center m-0 overflow-hidden">
+    <section id="testimonials" className="min-h-screen bg-gradient-to-b from-foreground/80 via-foreground/80 to-foreground/80 backdrop-blur-md flex flex-col items-center justify-center m-0 overflow-hidden">
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="What they said"
-          className="w-4/5 uppercase p-2 md:pb-8 text-foreground text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
+          className="w-4/5 uppercase p-2 md:pb-8 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
           delay={100}
           duration={0.6}
           ease="power3.out"
@@ -55,7 +55,7 @@ const Testimonials: React.FC = () => {
                 exit="exit"
               >
                 <div className="relative mb-8">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl archimoto leading-tight text-foreground">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl archimoto leading-tight text-background">
                     <span className="absolute -left-20 top-0 text-7xl md:text-9xl text-tertiary hidden lg:block font-bold opacity-90 select-none">“</span>
                     {activeTestimonial.quote}
                   </h2>
