@@ -182,9 +182,9 @@ export default function SceneRig(): JSX.Element {
       // New timeline: start scaling DOWN at section 2 (S(2)) and finish by start of section 3 (S(3)).
       // Reappear window remains S(8) -> S(10) (same as before).
       const sStartDown = S(1); // begin scale down at start of section 2
-      const sEndDown = S(3);   // reach 0 by start of section 3
+      const sEndDown = S(2);   // reach 0 by start of section 3
       const sReappearStart = S(7);
-      const sReappearEnd = S(9);
+      const sReappearEnd = S(8);
 
       let scaleFactor = 1;
       let travel = 0;

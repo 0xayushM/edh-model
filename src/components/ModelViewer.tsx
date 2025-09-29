@@ -13,7 +13,9 @@ import About from "./About";
 import Philosophy from "./Philosophy";
 import Testimonials from "./Testimonials";
 import Contact from "./Contact";
-import Footer from "./Footer";
+import Section1 from "./Section1";
+import Section2 from "./Section2";
+import Section9 from "./Section9";
 
 export default function ModelViewer(): JSX.Element {
   return (
@@ -47,15 +49,11 @@ export default function ModelViewer(): JSX.Element {
               <About />
 
               {/* Section 3 */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-
-              </section>
+              <Section1 />
 
 
               {/* Section 4 */}
-              <section className="w-screen h-screen flex p-8">
-                
-              </section>
+              <Section2/>
 
 
               <Gear1 /> {/* Section 5 */}
@@ -64,17 +62,13 @@ export default function ModelViewer(): JSX.Element {
               <Gear4 /> {/* Section 8 */}
 
               {/* Section 9 */}
-              <section
-                className="hidden md:block w-screen h-screen flex items-center justify-center p-8"
-              >
-                
-              </section>
 
               {/* Section 10: shells reassemble */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 
               </section>
 
+              <Section9/>
               {/* Section 11: final reveal */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
                 
