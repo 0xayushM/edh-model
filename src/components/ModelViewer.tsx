@@ -12,12 +12,12 @@ import Gear4 from "./Gear4";
 import About from "./About";
 import Philosophy from "./Philosophy";
 import Testimonials from "./Testimonials";
+import Contact from "./Contact";
 
 export default function ModelViewer(): JSX.Element {
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
-        {/* <color attach="background" args={['transparent']} /> */}
 
         {/* Lights */}
         <ambientLight intensity={0.1} />
@@ -32,7 +32,7 @@ export default function ModelViewer(): JSX.Element {
 
         <Environment preset="studio" />
 
-        <ScrollControls pages={13} damping={0.3}>
+        <ScrollControls pages={14} damping={0.3}>
           <Suspense fallback={null}>
             <SceneRig />
           </Suspense>
@@ -87,11 +87,11 @@ export default function ModelViewer(): JSX.Element {
                   <p className="text-2xl">...ending with a vertical reveal.</p>
                 </div>
               </section>
-
+ 
               <Philosophy/> {/* Section 12 */}
               <Testimonials/> {/* Section 13 */}
+              <Contact/> {/* Section 14 */}
 
-              
             </div>
           </Scroll>
         </ScrollControls>

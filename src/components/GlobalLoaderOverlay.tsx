@@ -42,7 +42,7 @@ export default function GlobalLoaderOverlay() {
     <div
       aria-busy={shouldShow}
       aria-live="polite"
-      className="fixed inset-0 z-[9999] flex items-center justify-center loader-bg text-[#EEDFD0]"
+      className="fixed inset-0 z-[9999] flex items-center justify-center gradient-background text-[#EEDFD0]"
       style={{ opacity, transition: "opacity 480ms ease" }}
     >
       <div className="flex flex-col items-center gap-6 px-6">
