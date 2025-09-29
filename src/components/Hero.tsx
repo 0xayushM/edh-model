@@ -17,15 +17,14 @@ const Hero = () => {
         >
           <source src='/video/hero.mp4' type='video/mp4' />
         </video>
-        <div className='relative z-10 h-screen pt-48 w-full bg-black/50 flex flex-col bg-black/50 pl-24 pr-12'>
+        <div className='relative z-10 h-screen pt-48 w-full bg-black/50 flex flex-col bg-black/50 px-4 md:pl-24 md:pr-12'>
           <h1 className='text-foreground text-5xl md:text-8xl nebulax font-medium uppercase tracking-tighter'>Excellence</h1>
           <h1 className='text-[#DBC3AE] text-5xl md:text-8xl nebulax font-medium uppercase tracking-tighter'>Dharma</h1>
           <h1 className='text-[#DBC3AE] text-5xl md:text-8xl nebulax font-medium uppercase tracking-tighter'>Happiness</h1>
         </div>
 
-        <div className='relative z-10 h-screen pb-48 w-full flex flex-col-reverse bg-black/50 pr-24 pl-12'>
+        <div className='relative z-10 h-screen pb-48 w-full flex flex-col-reverse bg-black/50 px-4 md:pr-24 md:pl-12'>
           <h2 className='text-foreground text-lg md:text-2xl archimoto uppercase tracking-tighter'>Turn your business into a growth engine. EDHWay automates the repetitive, connects the broken, and helps you focus on scaling, not firefighting.</h2>
-          <h1 className='text-foreground text-lg md:text-2xl archimoto uppercase tracking-tighter'>Founded in <span className='text-tertiary'>2025.</span></h1>
         </div>
       </div>
     </>

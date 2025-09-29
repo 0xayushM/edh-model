@@ -109,7 +109,7 @@ const Testimonials: React.FC = () => {
                           <path d="M16 12L0 24V0L16 12Z" fill="var(--tertiary)" />
                         </svg>
                       </div>
-                      <div className="lg:hidden absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-2.5 h-2.5 bg-tertiary rounded-full"></div>
+                      <div className="lg:hidden absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-2.5 h-2.5 bg-tertiary-1 rounded-full"></div>
                     </>
                   )}
                 </div>

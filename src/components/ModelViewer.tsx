@@ -13,6 +13,7 @@ import About from "./About";
 import Philosophy from "./Philosophy";
 import Testimonials from "./Testimonials";
 import Contact from "./Contact";
+import Footer from "./Footer";
 
 export default function ModelViewer(): JSX.Element {
   return (
@@ -53,8 +54,7 @@ export default function ModelViewer(): JSX.Element {
 
               {/* Section 4 */}
               <section className="w-screen h-screen flex p-8">
-                <div className="">
-                </div>
+                
               </section>
 
 
@@ -65,33 +65,27 @@ export default function ModelViewer(): JSX.Element {
 
               {/* Section 9 */}
               <section
-                className="w-screen h-screen flex items-center justify-center p-8"
+                className="hidden md:block w-screen h-screen flex items-center justify-center p-8"
               >
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  
-                </div>
+                
               </section>
 
               {/* Section 10: shells reassemble */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  
-                </div>
+                
               </section>
 
               {/* Section 11: final reveal */}
               <section className="w-screen h-screen flex items-center justify-center p-8">
-                <div className="max-w-3xl mx-auto text-center pointer-events-auto">
-                  
-                </div>
+                
               </section>
  
               <Philosophy/> {/* Section 12 */}
               <Testimonials/> {/* Section 13 */}
               <Contact/> {/* Section 14 */}
-
             </div>
           </Scroll>
+          {/* <Footer/> */}
         </ScrollControls>
       </Canvas>
     </div>

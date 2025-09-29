@@ -1,14 +1,16 @@
 import React from 'react';
 import SplitText from '@/ui/SplitText';
+import Footer from './Footer';
 
 const Contact = () => {
 
     return (
-        <section id="contact" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black via-black to-background">
+        <>
+        <section id="contact" className="min-h-screen flex flex-col items-center justify-center gradient-background">
             <div className='flex flex-col items-center justify-start h-full w-full'>
                 <SplitText
                     text="Contact Us"
-                    className="w-4/5 md:w-6/8 uppercase p-2 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
+                    className="w-4/5 md:w-6/8 uppercase py-8 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
                     delay={100}
                     duration={0.6}
                     ease="power3.out"
@@ -22,23 +24,8 @@ const Contact = () => {
                 />
                 <hr className="w-[100vw] border-secondary" />
 
-                <div className="w-4/5 py-8 md:py-16 md:w-6/8 grid items-center grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-                    <div className="relative rounded-full w-full h-[500px] overflow-hidden">
-                        <video
-                            className="absolute inset-0 w-full h-full object-cover z-10"
-                            muted                 // put muted before autoplay
-                            playsInline
-                            autoPlay
-                            loop
-                            preload="metadata"
-                            poster="/video/contact-poster.jpg"
-                            onError={(e) => console.error('Video error', e)}
-                        >
-                            <source src="/video/contact.webm" type="video/webm" />
-                            <source src="/video/contact.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
+                <div className="md:w-4/5 py-8 md:py-16 md:w-6/8 grid items-center md:grid-cols-2 gap-12 md:gap-16">
+                    <div></div>
                     {/* Right Column: Contact Form */}
                     <form className="space-y-6 archimoto">
                         <div className="relative">
@@ -58,6 +45,7 @@ const Contact = () => {
                 </div>
             </div>
         </section>
+        </>
     );
 };
 

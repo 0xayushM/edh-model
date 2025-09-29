@@ -8,10 +8,10 @@ const Gear1 = () => {
     <section className="w-screen h-screen flex p-8">
     <div id='home' className='w-full px-5 lg:px-24 flex flex-col items-end justify-center'>
         <div className='items-right p-4 md:py-8 md:px-12 md:w-3/7 '>
-          <h1 className='text-tertiary-1 text-3xl md:text-4xl nebulax uppercase w-full leading-[0.8] tracking-tight'>
+          <h1 className='text-tertiary text-3xl md:text-4xl nebulax uppercase w-full leading-[0.8] tracking-tight'>
             Streamlined
           </h1>
-          <h1 className='text-tertiary-1 text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>
+          <h1 className='text-tertiary text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>
             Lead Generation
           </h1>
           <hr className="w-full h-[2px] bg-tertiary my-4" />

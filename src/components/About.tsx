@@ -6,10 +6,10 @@ const About = () => {
 
     return (
         <section id="about" className="min-h-screen bg-foreground/80 backdrop-blur-md flex flex-col items-center justify-center">
-            <div className='flex flex-col items-center justify-center h-full w-full'>
+            <div className='flex flex-col items-center justify-center md:h-full w-full'>
                 <SplitText
                     text="About Us"
-                    className="w-4/5 uppercase p-2 md:pb-8 text-background text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
+                    className="w-4/5 uppercase py-8 md:pb-8 text-background text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
                     delay={100}
                     duration={0.6}
                     ease="power3.out"
@@ -23,9 +23,9 @@ const About = () => {
                 />
                 <div className="w-full md:w-[100vw] flex flex-col items-center justify-center ">
                     <hr className="w-full md:w-[100vw] border-secondary" />
-                    <div className='w-4/5 grid grid-cols-2 py-8 pt-20 items-center gap-8'>
+                    <div className='w-4/5 grid md:grid-cols-2 pt-12 pb-20 md:pt-20 items-center gap-8'>
                         <div>
-                            <p className="archimoto text-background text-justify text-2xl">
+                            <p className="archimoto text-background text-justify break-words hyphens-auto text-2xl">
                                 At <span className='text-background nebulax'>EDHWay</span>, we believe that growth should be smooth, not chaotic. Most businesses lose time, money, and opportunities because of broken workflows, disconnected marketing, and manual follow-ups.
                                 <br />
                                 <br />

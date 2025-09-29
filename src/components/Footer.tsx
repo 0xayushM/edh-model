@@ -14,7 +14,7 @@ const Footer = () => {
   const secondColumn = socialLinks.slice(midIndex);
 
   return (
-    <footer className="bg-background text-foreground border-1 py-10 px-10 font-sans border-t-2 border-x-0 border-secondary">
+    <footer className="fixed bottom-0 left-0 w-full bg-background/80 backdrop-blur-md text-foreground border-t-2 border-secondary py-10 px-10 font-sans z-50">
       <div className="w-4/5 mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         
         <div className="md:col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
