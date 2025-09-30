@@ -1,8 +1,16 @@
 "use client";
 
-import React, { JSX, Suspense } from "react";
+import React, { JSX, Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ScrollControls, Scroll } from "@react-three/drei";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+}
 import SceneRig from "./SceneRig";
 import Hero from "./Hero";
 import Gear1 from "./Gear1";
@@ -18,6 +26,55 @@ import Section2 from "./Section2";
 import Section9 from "./Section9";
 
 export default function ModelViewer(): JSX.Element {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Wait for drei's scroll container to be ready
+    const initTimer = setTimeout(() => {
+      // Find the scroll container created by drei
+      const scrollContainer = document.querySelector('.scroll') as HTMLElement;
+      
+      if (scrollContainer) {
+        const totalPages = 14;
+        let isSnapping = false;
+        let snapTimeout: NodeJS.Timeout;
+
+        const handleScroll = () => {
+          if (isSnapping) return;
+
+          clearTimeout(snapTimeout);
+          snapTimeout = setTimeout(() => {
+            const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+            const currentScroll = scrollContainer.scrollTop;
+            const currentPage = Math.round((currentScroll / scrollHeight) * (totalPages - 1));
+            const targetScroll = (currentPage / (totalPages - 1)) * scrollHeight;
+
+            isSnapping = true;
+            gsap.to(scrollContainer, {
+              scrollTop: targetScroll,
+              duration: 0.5,
+              ease: "power2.inOut",
+              onComplete: () => {
+                isSnapping = false;
+              },
+            });
+          }, 150);
+        };
+
+        scrollContainer.addEventListener('scroll', handleScroll);
+
+        return () => {
+          scrollContainer.removeEventListener('scroll', handleScroll);
+          clearTimeout(snapTimeout);
+        };
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(initTimer);
+    };
+  }, []);
+
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
       <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
