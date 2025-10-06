@@ -5,7 +5,7 @@ import React from 'react';
 const Gear3 = () => {
   return (
     <>
-      <section className="w-screen h-screen pt-48 flex p-8">
+      <section className="w-screen h-screen pt-0 flex p-8">
         <div id='home' className='w-full px-5 lg:px-24 flex flex-col items-end justify-center'>
           <div className='items-right p-4 md:py-8 md:px-12 md:w-4/7 '>
             <h1 className='text-tertiary text-3xl md:text-4xl nebulax uppercase w-full tracking-tight'>

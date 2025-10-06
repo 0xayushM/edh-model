@@ -1,63 +1,16 @@
 "use client";
 
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Navbar = () => {
-  const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const sectionIds = ['home', 'about', 'philosophy', 'contact'];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      let currentActive = 'home'; // Default to home
-      const viewportCenterY = window.innerHeight / 2;
-      let minDistanceToCenter = Infinity;
-
-      for (const id of sectionIds) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top < window.innerHeight && rect.bottom > 0) {
-            const sectionCenterY = rect.top + rect.height / 2;
-            const distance = Math.abs(sectionCenterY - viewportCenterY);
-
-            if (distance < minDistanceToCenter) {
-              minDistanceToCenter = distance;
-              currentActive = id;
-            }
-          }
-        }
-      }
-
-      if (window.scrollY < 50) {
-        currentActive = 'home';
-      } else if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 50) {
-        currentActive = sectionIds[sectionIds.length - 1];
-      }
-
-      if (activeSection !== currentActive) {
-        setActiveSection(currentActive);
-      }
-    };
-
-    handleScroll();
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [activeSection]);
-
-  const handleLinkClick = () => {
-    setIsMenuOpen(false);
-  };
 
   const navLinks = (
     <>
-      <Link href="#about" className={`${activeSection === 'about' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>About</Link>
-      <Link href="#philosophy" className={`${activeSection === 'philosophy' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>Philosophy</Link>
-      <Link href="#contact" className={`${activeSection === 'contact' ? 'text-tertiary' : 'text-foreground hover:text-tertiary'} transition-colors duration-300`} onClick={handleLinkClick}>Contact</Link>
+      <Link href="#about" className={`text-foreground hover:text-tertiary transition-colors duration-300`}>About</Link>
+      <Link href="#philosophy" className={`text-foreground hover:text-tertiary transition-colors duration-300`}>Philosophy</Link>
+      <Link href="#contact" className={`text-foreground hover:text-tertiary transition-colors duration-300`}>Contact</Link>
     </>
   );
 

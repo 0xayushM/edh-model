@@ -24,6 +24,7 @@ import Contact from "./Contact";
 import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Section9 from "./Section9";
+import Team from "./Team";
 
 export default function ModelViewer(): JSX.Element {
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function ModelViewer(): JSX.Element {
       const scrollContainer = document.querySelector('.scroll') as HTMLElement;
       
       if (scrollContainer) {
-        const totalPages = 14;
+        const totalPages = 13;
         let isSnapping = false;
         let snapTimeout: NodeJS.Timeout;
 
@@ -92,7 +93,7 @@ export default function ModelViewer(): JSX.Element {
 
         <Environment preset="studio" />
 
-        <ScrollControls pages={14} damping={0.3}>
+        <ScrollControls pages={13} damping={0.3}>
           <Suspense fallback={null}>
             <SceneRig />
           </Suspense>
@@ -100,40 +101,19 @@ export default function ModelViewer(): JSX.Element {
           {/* HTML overlay sections (11 full-screen sections) */}
           <Scroll html>
             <div className="relative z-20 w-screen">
-              <Hero />
-
-              {/* Section 2 */}
-              <About />
-
-              {/* Section 3 */}
-              <Section1 />
-
-
-              {/* Section 4 */}
-              <Section2/>
-
-
+              <Hero />{/* Section 1 */}
+              <About />{/* Section 2 */}
+              <Section1 />{/* Section 3 */}
+              <Section2 />{/* Section 4 */}
               <Gear1 /> {/* Section 5 */}
               <Gear2 /> {/* Section 6 */}
               <Gear3 /> {/* Section 7 */}
               <Gear4 /> {/* Section 8 */}
-
-              {/* Section 9 */}
-
-              {/* Section 10: shells reassemble */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-                
-              </section>
-
-              <Section9/>
-              {/* Section 11: final reveal */}
-              <section className="w-screen h-screen flex items-center justify-center p-8">
-                
-              </section>
- 
-              <Philosophy/> {/* Section 12 */}
-              <Testimonials/> {/* Section 13 */}
-              <Contact/> {/* Section 14 */}
+              <Section9/>{/* Section 9 */}
+              <Philosophy/> {/* Section 10 */}
+              <Testimonials/> {/* Section 11 */}
+              <Team/> {/* Section 12 */}
+              <Contact/> {/* Section 13 */}
             </div>
           </Scroll>
           {/* <Footer/> */}

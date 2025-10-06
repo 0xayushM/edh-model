@@ -7,7 +7,7 @@ const Contact = () => {
 
     return (
         <>
-            <section id="contact" className="min-h-screen flex flex-col items-center justify-center gradient-background">
+            <section id="contact" className="min-h-screen flex flex-col items-center justify-center gradient-background md:pt-12">
                 <div className='flex flex-col items-center justify-start h-full w-full'>
                     <SplitText
                         text="Contact Us"
@@ -23,43 +23,46 @@ const Contact = () => {
                         textAlign="start"
                         onLetterAnimationComplete={() => { }}
                     />
-                    <hr className="w-[100vw] border-secondary" />
-
-                    <div className="md:w-4/5 py-8 md:py-16 md:w-6/8 grid items-center md:grid-cols-2 gap-12 md:gap-16">
-                        <div>
-                            <div className='relative'>
+                    <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
+                        <hr className="w-full md:w-[100vw] border-secondary" />
+                        <div className="w-full md:w-6/8 h-full flex flex-col md:flex-row md:gap-12 pt-10 px-4 md:px-0 ">
+                            <div className="flex items-start justify-start mb-8 md:mb-0" style={{ width: '392px', height: '392px' }}>
                                 <Cubes
-                                    className="w-full"
                                     gridSize={8}
+                                    cubeSize={36.5}
                                     maxAngle={30}
                                     radius={4}
                                     borderStyle="2px dashed #c08457"
                                     faceColor="var(--foreground)/50"
                                     rippleColor="var(--tertiary)"
-                                    rippleSpeed={1.5}
+                                    rippleSpeed={2}
                                     autoAnimate={true}
                                     rippleOnClick={true}
                                 />
                             </div>
+                            {/* Right Column: Contact Form */}
+                            <form className="flex-1 space-y-6 archimoto flex flex-col w-full">
+                                <div className="relative">
+                                    <input type="text" id="name" placeholder=" " className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer" />
+                                    <label htmlFor="name" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Name</label>
+                                </div>
+                                <div className="relative">
+                                    <input type="email" id="email" placeholder=" " className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer" />
+                                    <label htmlFor="email" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Email</label>
+                                </div>
+                                <div className="relative">
+                                    <textarea id="message" rows={5} placeholder=" " className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer"></textarea>
+                                    <label htmlFor="message" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Message</label>
+                                </div>
+                                <button type="submit" className="w-full bg-transparent border-2 border-tertiary text-tertiary font-bold py-3 px-6 rounded-lg button-wipe-hover uppercase tracking-wider archimoto-bold transition-colors duration-100" data-text="Send Message">Send Message</button>
+                            </form>
+                            <div className="hidden md:flex items-center justify-start ">
+                                <h1 className="[writing-mode:vertical-lr] text-7xl font-bold tracking-widest nebulax bg-gradient-to-b from-tertiary to-foreground bg-clip-text text-transparent">EDHWAY</h1>
+                            </div>
                         </div>
-                        {/* Right Column: Contact Form */}
-                        <form className="space-y-6 archimoto">
-                            <div className="relative">
-                                <input type="text" id="name" placeholder=" " className="block w-full p-4 bg-transparent border border-secondary rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer" />
-                                <label htmlFor="name" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Name</label>
-                            </div>
-                            <div className="relative">
-                                <input type="email" id="email" placeholder=" " className="block w-full p-4 bg-transparent border border-secondary rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer" />
-                                <label htmlFor="email" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Email</label>
-                            </div>
-                            <div className="relative">
-                                <textarea id="message" rows={5} placeholder=" " className="block w-full p-4 bg-transparent border border-secondary rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer"></textarea>
-                                <label htmlFor="message" className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">Your Message</label>
-                            </div>
-                            <button type="submit" className="w-full bg-transparent border-2 border-tertiary text-tertiary font-bold py-3 px-6 rounded-lg button-wipe-hover uppercase tracking-wider archimoto-bold transition-colors duration-100" data-text="Send Message">Send Message</button>
-                        </form>
                     </div>
                 </div>
+                <Footer />
             </section>
         </>
     );
