@@ -31,7 +31,7 @@ const Gear2 = () => {
               <div className='flex flex-col items-center justify-center p-4 border-2 border-tertiary bg-tertiary/40 rounded-2xl text-foreground nebulax text-4xl'>
                 <div className='py-2'>
                   <h1 className='nebulax text-4xl text-center mb-4'>35%</h1>
-                  <h1 className='archimoto text-lg text-center'>Reduce<br /> Turnover</h1>
+                  <h1 className='archimoto text-lg text-center'>Increase<br /> Turnover</h1>
                 </div>
               </div>
               <div className='flex flex-col items-center justify-center p-4 border-2 border-tertiary bg-tertiary/40 rounded-2xl text-foreground nebulax text-4xl'>
