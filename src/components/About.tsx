@@ -25,7 +25,7 @@ const About = () => {
                     <hr className="w-full md:w-[100vw] border-secondary" />
                     <div className='w-4/5 grid md:grid-cols-2 pt-12 pb-20 md:pt-20 items-center gap-8'>
                         <div>
-                            <p className="archimoto text-background text-justify break-words hyphens-auto text-2xl">
+                            <p className="archimoto text-background text-justify break-words hyphens-auto text-lg md:text-2xl">
                                 At <span className='text-background nebulax'>EDHWay</span>, we believe that growth should be smooth, not chaotic. Most businesses lose time, money, and opportunities because of broken workflows, disconnected marketing, and manual follow-ups.
                                 <br />
                                 <br />
@@ -33,7 +33,7 @@ const About = () => {
                             </p>
                         </div>
                         <div className='grid grid-cols-2 gap-y-8 gap-x-0'>
-                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-4xl'>
+                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-2xl md:text-4xl'>
                             <div className='py-2'>
                             <CountUp
                                 from={0}
@@ -43,9 +43,9 @@ const About = () => {
                                 duration={1}
                                 className="count-up-text"
                             />+</div>
-                            <h1 className='archimoto text-xl text-center'>Workflows<br/> Automated</h1>
+                            <h1 className='archimoto text-lg md:text-xl text-center'>Workflows<br/> Automated</h1>
                             </div>
-                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-4xl'>
+                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-2xl md:text-4xl'>
                             <div className='py-2'>
                             <CountUp
                                 from={0}
@@ -55,9 +55,9 @@ const About = () => {
                                 duration={1}
                                 className="count-up-text"
                             />%</div>
-                            <h1 className='archimoto text-xl text-center'>Average <br/>Growth</h1>
+                            <h1 className='archimoto text-lg md:text-xl text-center'>Average <br/>Growth</h1>
                             </div>
-                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-4xl'>
+                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-2xl md:text-4xl'>
                             <div className='py-2'>
                             <CountUp
                                 from={0}
@@ -67,9 +67,9 @@ const About = () => {
                                 duration={1}
                                 className="count-up-text"
                             />%</div>
-                            <h1 className='archimoto text-xl text-center'>Client <br/>Retention</h1>
+                            <h1 className='archimoto text-lg md:text-xl text-center'>Client <br/>Retention</h1>
                             </div>
-                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-4xl'>
+                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-2xl md:text-4xl'>
                             <div className='py-2'>
                             <CountUp
                                 from={0}
@@ -79,7 +79,7 @@ const About = () => {
                                 duration={1}
                                 className="count-up-text"
                             />+</div>
-                            <h1 className='archimoto text-xl text-center'>Industries</h1>
+                            <h1 className='archimoto text-lg md:text-xl text-center'>Industries</h1>
                             </div>
                         </div>
                     </div>
