@@ -31,7 +31,7 @@ const TeamCarousel = ({ members }: TeamCarouselProps) => {
         if (!scrollContainer) return
 
         const scrollSpeed = 0.5 // pixels per frame
-        const cardWidth = 320 // card width + gap
+        const cardWidth = window.innerWidth < 768 ? 280 : 320 // card width + gap (responsive)
         const resetPoint = cardWidth * members.length
 
         const animate = () => {
@@ -61,8 +61,8 @@ const TeamCarousel = ({ members }: TeamCarouselProps) => {
         const scrollContainer = scrollRef.current
         if (!scrollContainer) return
 
-        const cardWidth = 320 // card width + gap
-        const scrollAmount = cardWidth * 2 // Scroll 2 cards at a time
+        const cardWidth = window.innerWidth < 768 ? 280 : 320 // card width + gap (responsive)
+        const scrollAmount = window.innerWidth < 768 ? cardWidth : cardWidth * 2 // Scroll 1 card on mobile, 2 on desktop
         
         if (direction === 'left') {
             scrollPositionRef.current -= scrollAmount
@@ -89,41 +89,41 @@ const TeamCarousel = ({ members }: TeamCarouselProps) => {
             {/* Left Navigation Button */}
             <button
                 onClick={() => handleScroll('left')}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-[#252423]/90 hover:bg-[#252423] border border-gray-700 hover:border-[#ededed] rounded-full p-3 transition-all duration-300 hover:scale-110 group"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 bg-[#252423]/90 hover:bg-[#252423] border border-gray-700 hover:border-[#ededed] rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110 group"
                 aria-label="Scroll left"
             >
-                <ChevronLeft className="w-6 h-6 text-gray-400 group-hover:text-[#ededed] transition-colors" />
+                <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-gray-400 group-hover:text-[#ededed] transition-colors" />
             </button>
 
             {/* Right Navigation Button */}
             <button
                 onClick={() => handleScroll('right')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-[#252423]/90 hover:bg-[#252423] border border-gray-700 hover:border-[#ededed] rounded-full p-3 transition-all duration-300 hover:scale-110 group"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 bg-[#252423]/90 hover:bg-[#252423] border border-gray-700 hover:border-[#ededed] rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110 group"
                 aria-label="Scroll right"
             >
-                <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-[#ededed] transition-colors" />
+                <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-gray-400 group-hover:text-[#ededed] transition-colors" />
             </button>
 
             {/* Left fade */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black/70 to-transparent z-10 pointer-events-none" />
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-black/70 to-transparent z-10 pointer-events-none" />
             
             {/* Right fade */}
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black/70 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-black/70 to-transparent z-10 pointer-events-none" />
             
             {/* Scrolling container */}
             <div 
                 ref={scrollRef}
-                className="flex gap-6 overflow-x-hidden py-4"
+                className="flex gap-4 md:gap-6 overflow-x-hidden py-4"
                 style={{ scrollBehavior: 'auto' }}
             >
                 {duplicatedMembers.map((member, index) => (
                     <div
                         key={`${member.handle}-${index}`}
-                        className="flex-shrink-0 w-[300px] group"
+                        className="flex-shrink-0 w-[260px] md:w-[300px] group"
                     >
                         <div className="relative bg-[#252423] rounded-lg overflow-hidden border border-gray-800 hover:border-gray-600 transition-all duration-300 hover:scale-105">
                             {/* Image container with B&W filter */}
-                            <div className="relative h-[350px] overflow-hidden">
+                            <div className="relative h-[300px] md:h-[350px] overflow-hidden">
                                 <img
                                     src={member.image}
                                     alt={member.title}
@@ -136,7 +136,7 @@ const TeamCarousel = ({ members }: TeamCarouselProps) => {
                             </div>
                             
                             {/* Content */}
-                            <div className="p-6 space-y-3">
+                            <div className="p-4 md:p-6 space-y-2 md:space-y-3">
                                 <div>
                                     <h3 className="text-xl nebulax font-bold text-[#ededed] mb-1">
                                         {member.title}

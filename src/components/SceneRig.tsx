@@ -1,5 +1,5 @@
 // components/SceneRig.tsx
-import React, { JSX, useRef } from "react";
+import React, { JSX, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 import { useFrame, RootState } from "@react-three/fiber";
 import { useScroll } from "@react-three/drei";
@@ -23,6 +23,27 @@ export default function SceneRig(): JSX.Element {
   const modelRef = useRef<THREE.Group>(null);
   const scroll = useScroll();
   const capRef = useRef<THREE.Object3D | null>(null);
+  const [modelScale, setModelScale] = useState(0.025);
+
+  // Responsive model scaling based on screen size
+  useEffect(() => {
+    const updateScale = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setModelScale(0.015); // Mobile phones
+      } else if (width < 768) {
+        setModelScale(0.018); // Small tablets
+      } else if (width < 1024) {
+        setModelScale(0.022); // Tablets
+      } else {
+        setModelScale(0.025); // Desktop
+      }
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
   // caches
   const shells = useRef<Record<string, { ref: THREE.Object3D | null; parent: THREE.Object3D | null; baseLocalPos: THREE.Vector3; baseScale: THREE.Vector3 }>>({});
@@ -226,7 +247,7 @@ export default function SceneRig(): JSX.Element {
 
   return (
     <group ref={modelRef}>
-      <GltfModel url="/models/edhway.glb" scale={0.025} />
+      <GltfModel url="/models/edhway.glb" scale={modelScale} />
     </group>
   );
 }

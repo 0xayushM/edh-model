@@ -7,7 +7,7 @@ const Contact = () => {
 
     return (
         <>
-            <section id="contact" className="min-h-screen flex flex-col items-center justify-center gradient-background md:pt-12">
+            <section id="contact" className="py-10 md:min-h-screen flex flex-col items-center justify-center gradient-background md:pt-12">
                 <div className='flex flex-col items-center justify-start h-full w-full'>
                     <SplitText
                         text="Contact Us"
@@ -25,11 +25,25 @@ const Contact = () => {
                     />
                     <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
                         <hr className="w-full md:w-[100vw] border-secondary" />
-                        <div className="w-full md:w-6/8 h-full flex flex-col md:flex-row md:gap-12 pt-10 px-4 md:px-0 ">
-                            <div className="flex items-start justify-start mb-8 md:mb-0" style={{ width: '392px', height: '392px' }}>
+                        <div className="w-full md:w-6/8 h-full flex flex-col md:flex-row md:gap-12 pt-10 px-8 mx-auto md:px-0 ">
+                            <div className="hidden md:inline flex md:items-start md:justify-start mb-8 md:mb-0 h-[392px] w-[392px]">
                                 <Cubes
                                     gridSize={8}
                                     cubeSize={36.5}
+                                    maxAngle={30}
+                                    radius={4}
+                                    borderStyle="2px dashed #c08457"
+                                    faceColor="var(--foreground)/50"
+                                    rippleColor="var(--tertiary)"
+                                    rippleSpeed={2}
+                                    autoAnimate={true}
+                                    rippleOnClick={true}
+                                />
+                            </div>
+                            <div className="md:hidden flex mb-8 md:mb-0 h-[350px] w-[392px]">
+                                <Cubes
+                                    gridSize={8}
+                                    cubeSize={32.5}
                                     maxAngle={30}
                                     radius={4}
                                     borderStyle="2px dashed #c08457"

@@ -24,7 +24,7 @@ import Contact from "./Contact";
 import Section1 from "./Section1";
 import Section2 from "./Section2";
 import Section9 from "./Section9";
-import Team from "./Team";
+import Team from './Team'
 
 export default function ModelViewer(): JSX.Element {
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function ModelViewer(): JSX.Element {
 
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
-      <Canvas shadows camera={{ position: [0, 0, 3], fov: 45 }}>
+      <Canvas shadows camera={{ position: [0, 0, 3], fov: typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 45 }}>
 
         {/* Lights */}
         <ambientLight intensity={0.1} />
