@@ -44,6 +44,10 @@ export default function ModelViewer(): JSX.Element {
           if (isSnapping) return;
 
           clearTimeout(snapTimeout);
+          // Shorter timeout on mobile for better responsiveness
+          const isMobile = window.innerWidth < 768;
+          const timeout = isMobile ? 100 : 150;
+          
           snapTimeout = setTimeout(() => {
             const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
             const currentScroll = scrollContainer.scrollTop;
@@ -53,13 +57,13 @@ export default function ModelViewer(): JSX.Element {
             isSnapping = true;
             gsap.to(scrollContainer, {
               scrollTop: targetScroll,
-              duration: 0.5,
+              duration: isMobile ? 0.4 : 0.5,
               ease: "power2.inOut",
               onComplete: () => {
                 isSnapping = false;
               },
             });
-          }, 150);
+          }, timeout);
         };
 
         scrollContainer.addEventListener('scroll', handleScroll);
