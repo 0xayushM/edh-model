@@ -2,7 +2,7 @@
 
 import React from 'react'
 import SplitText from '@/ui/SplitText'
-import ChromaGrid from '@/ui/ChromeGrid'
+import TeamCarousel from './TeamCarousel'
 import teams from '@/data/teams.json'
 
 const Team = () => {
@@ -27,16 +27,8 @@ const Team = () => {
                     />
                     <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
                         <hr className="w-full md:w-[100vw] border-secondary" />
-                        <div className="w-auto h-full flex flex-col md:flex-row md:gap-12 pt-10 px-4 md:px-0 ">
-                            <div className="w-auto h-full relative">
-                                <ChromaGrid
-                                    items={items}
-                                    radius={250}
-                                    damping={0.45}
-                                    fadeOut={0.6}
-                                    ease="power3.out"
-                                />
-                            </div>
+                        <div className="w-full pt-10">
+                            <TeamCarousel members={items} />
                         </div>
                     </div>
                 </div>
