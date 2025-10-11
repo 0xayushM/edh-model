@@ -8,17 +8,17 @@ const Gear1 = () => {
       <section className="w-screen h-screen flex p-4 md:p-8">
         <div id='home' className='w-full px-2 md:px-5 lg:px-24 flex flex-col items-end justify-center'>
           <div className='items-right p-2 md:p-4 md:py-8 md:px-12 w-full md:w-4/7 '>
-            <h1 className='text-tertiary text-xl md:text-3xl lg:text-4xl nebulax uppercase w-full tracking-tight'>
+            <h1 className='text-tertiary text-3xl lg:text-4xl nebulax uppercase w-full tracking-tight'>
               The Visibility Vortex:
             </h1>
-            <h1 className='text-foreground text-xl md:text-3xl lg:text-4xl nebulax uppercase w-full tracking-tight'>
+            <h1 className='text-foreground text-3xl lg:text-4xl nebulax uppercase w-full tracking-tight'>
               Are You Lost in the Digital Noise?
             </h1>
             <hr className="w-full h-[2px] bg-tertiary my-4" />
-            <h2 className='text-tertiary text-lg md:text-2xl lg:text-4xl archimoto-bold uppercase w-full tracking-tight'>
+            <h2 className='text-tertiary text-xl md:text-2xl lg:text-4xl archimoto-bold uppercase w-full tracking-tight'>
               the EDHWay
             </h2>
-            <p className='text-sm md:text-lg lg:text-2xl text-justify hyphens-auto break-words tracking-tight archimoto transition-colors duration-100 group-hover:text-background mb-4 md:mb-8'>
+            <p className='text-lg lg:text-2xl text-justify hyphens-auto break-words tracking-tight archimoto transition-colors duration-100 group-hover:text-background mb-4 md:mb-8'>
               AI-Driven Reach & Conversion Nexus. We deploy advanced AI analytics to pinpoint your ideal audience, craft hyper-targeted campaigns, and automate outreach, ensuring your message cuts through the clutter and converts prospects into loyal customers.
             </p>
             
