@@ -32,9 +32,9 @@ export default function SceneRig(): JSX.Element {
       if (width < 640) {
         setModelScale(0.015); // Mobile phones
       } else if (width < 768) {
-        setModelScale(0.018); // Small tablets
+        setModelScale(0.020); // Small tablets
       } else if (width < 1024) {
-        setModelScale(0.022); // Tablets
+        setModelScale(0.025); // Tablets
       } else {
         setModelScale(0.025); // Desktop
       }
