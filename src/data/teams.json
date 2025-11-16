@@ -1,17 +1,17 @@
 [
     {
         "image": "/team/sandeep_kalra.jpeg",
-        "title": "Sandeep Kalra",
-        "subtitle": "CEO",
-        "handle": "@sandeep_kalra",
+        "title": "Sandeep Agarwal",
+        "subtitle": "Founder & CEO",
+        "handle": "@sandeep_agarwal",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/sandeep-kalra"
+        "url": "https://linkedin.com/in/sandeep-agarwal"
       },
       {
         "image": "/team/sunny_kalra.jpeg",
         "title": "Sunny Kalra",
-        "subtitle": "Chief Growth Specialist",
+        "subtitle": "Founder & Chief Growth Specialist",
         "handle": "@sunny_kalra",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
