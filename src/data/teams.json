@@ -6,7 +6,7 @@
         "handle": "@sandeep_agarwal",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/sandeep-agarwal"
+        "url": "https://www.linkedin.com/in/sandeep-agarwal-504568227/"
       },
       {
         "image": "/team/sunny_kalra.jpeg",
@@ -15,7 +15,7 @@
         "handle": "@sunny_kalra",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/sunny-kalra"
+        "url": "https://www.linkedin.com/in/sunny-kalra"
       },
       {
         "image": "/team/shourya.jpeg",
@@ -24,7 +24,7 @@
         "handle": "@shourya",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/shourya-chirania"
+        "url": "https://www.linkedin.com/in/shourya-kumar-chirania-a7a45a190/"
       },
       {
         "image": "/team/ayush.png",
@@ -33,7 +33,7 @@
         "handle": "@0xayushm",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/0xayushm"
+        "url": "https://www.linkedin.com/in/0xayushm"
       },
       {
         "image": "/team/vaibhav.jpeg",
@@ -42,7 +42,7 @@
         "handle": "@vaibhav_khandelwal",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/vaibhav-khandelwal"
+        "url": "https://www.linkedin.com/in/vaibhav-khandelwal-437730192/"
       },
       {
         "image": "/team/snehal.jpeg",
@@ -51,6 +51,6 @@
         "handle": "@snehal",
         "borderColor": "#4F46E5",
         "gradient": "linear-gradient(145deg,#000,#C08457, #000)",
-        "url": "https://linkedin.com/in/snehal-raj"
+        "url": "https://www.linkedin.com/in/snehal-raj-darkshark/"
       }
 ]
