@@ -119,7 +119,7 @@ const TeamCarousel = ({ members }: TeamCarouselProps) => {
                 {duplicatedMembers.map((member, index) => (
                     <div
                         key={`${member.handle}-${index}`}
-                        className="flex-shrink-0 w-[260px] md:w-[300px] group"
+                        className="flex-shrink-0 w-[260px] md:w-[330px] group"
                     >
                         <div className="relative bg-[#252423] rounded-lg overflow-hidden border border-gray-800 hover:border-gray-600 transition-all duration-300 hover:scale-105">
                             {/* Image container with B&W filter */}
