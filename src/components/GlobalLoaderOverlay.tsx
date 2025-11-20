@@ -7,16 +7,22 @@ import AnimatedLoading from "./AnimatedLoading";
 export default function GlobalLoaderOverlay() {
   const { progress, active } = useProgress();
 
-  // Ensure we show the overlay at least briefly on first paint to avoid flashes
-  const [bootDelayDone, setBootDelayDone] = useState(false);
+  // Track when component mounts
+  const [mountTime] = useState(() => Date.now());
+  
+  // Minimum display time: 5 seconds
+  const MINIMUM_DISPLAY_TIME = 5000;
+  
+  // Track if minimum time has passed
+  const [minTimePassed, setMinTimePassed] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setBootDelayDone(true), 500);
+    const t = setTimeout(() => setMinTimePassed(true), MINIMUM_DISPLAY_TIME);
     return () => clearTimeout(t);
   }, []);
 
   // Determine if we should be visible
   const isBusy = active || progress < 100;
-  const shouldShow = isBusy || !bootDelayDone;
+  const shouldShow = isBusy || !minTimePassed;
 
   // Manage fade-out/unmount timing
   const [mounted, setMounted] = useState(true);
@@ -28,9 +34,9 @@ export default function GlobalLoaderOverlay() {
       setOpacity(1);
       return;
     }
-    // Start fade-out and unmount after a short delay
+    // Start fade-out immediately when conditions are met
     setOpacity(0);
-    const t = setTimeout(() => setMounted(false), 3000);
+    const t = setTimeout(() => setMounted(false), 800); // Fade out duration
     return () => clearTimeout(t);
   }, [shouldShow]);
 

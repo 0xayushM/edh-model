@@ -126,10 +126,16 @@ const TextType = ({
           }, deletingSpeed);
         }
       } else {
+        // Ensure we start fresh when beginning a new text
+        if (currentCharIndex === 0 && displayedText !== '') {
+          setDisplayedText('');
+          return;
+        }
+        
         if (currentCharIndex < processedText.length) {
           timeout = setTimeout(
             () => {
-              setDisplayedText(prev => prev + processedText[currentCharIndex]);
+              setDisplayedText(processedText.substring(0, currentCharIndex + 1));
               setCurrentCharIndex(prev => prev + 1);
             },
             variableSpeed ? getRandomSpeed() : typingSpeed
@@ -164,7 +170,8 @@ const TextType = ({
     isVisible,
     reverseMode,
     variableSpeed,
-    onSentenceComplete
+    onSentenceComplete,
+    getRandomSpeed
   ]);
 
   const shouldHideCursor =

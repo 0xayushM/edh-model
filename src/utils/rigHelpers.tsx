@@ -38,6 +38,8 @@ export const fadeTargetNames = [
 // positions & rotation placeholders (mirror your original arrays)
 // Keep these exported so SceneRig can pick them by index.
 export const FINAL_POS_Y = FINAL_Y;
+
+// Desktop positions
 export const P0 = new THREE.Vector3(0, 0, -0.5);
 export const P1 = new THREE.Vector3(0, 0, 0);
 export const P2 = new THREE.Vector3(0, 0, -0.5);
@@ -49,6 +51,33 @@ export const P7 = new THREE.Vector3(0, 0, 0);
 export const P8 = new THREE.Vector3(0, FINAL_Y, 0);
 export const P9 = new THREE.Vector3(0, 0, -1);
 
+// Mobile positions (adjusted for better mobile view - closer and more centered)
+export const P0_MOBILE = new THREE.Vector3(0, 0, -0.3);
+export const P1_MOBILE = new THREE.Vector3(0, 0, 0);
+export const P2_MOBILE = new THREE.Vector3(0, 0, -0.3);
+export const P3_MOBILE = new THREE.Vector3(-0.5, -0.5, 1.0);
+export const P4_MOBILE = new THREE.Vector3(0.4, -0.3, 1.0);
+export const P5_MOBILE = new THREE.Vector3(-0.6, 0.1, 1.2);
+export const P6_MOBILE = new THREE.Vector3(0.3, -0.5, 1.0);
+export const P7_MOBILE = new THREE.Vector3(0, 0, 0);
+export const P8_MOBILE = new THREE.Vector3(0, FINAL_Y, 0);
+export const P9_MOBILE = new THREE.Vector3(0, 0, -0.8);
+
+// Helper function to get positions based on screen size
+export const getPositions = (isMobile: boolean) => {
+  if (isMobile) {
+    return {
+      posAList: [P0_MOBILE, P1_MOBILE, P2_MOBILE, P2_MOBILE, P3_MOBILE, P4_MOBILE, P5_MOBILE, P6_MOBILE, P2_MOBILE, P7_MOBILE, P7_MOBILE, P9_MOBILE],
+      posBList: [P1_MOBILE, P2_MOBILE, P2_MOBILE, P3_MOBILE, P4_MOBILE, P5_MOBILE, P6_MOBILE, P2_MOBILE, P7_MOBILE, P7_MOBILE, P9_MOBILE, P8_MOBILE]
+    };
+  }
+  return {
+    posAList: [P0, P1, P2, P2, P3, P4, P5, P6, P2, P7, P7, P9],
+    posBList: [P1, P2, P2, P3, P4, P5, P6, P2, P7, P7, P9, P8]
+  };
+};
+
+// Default exports for backward compatibility
 export const posAList = [P0, P1, P2, P2, P3, P4, P5, P6, P2, P7, P7, P9];
 export const posBList = [P1, P2, P2, P3, P4, P5, P6, P2, P7, P7, P9, P8];
 

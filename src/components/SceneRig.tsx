@@ -14,8 +14,7 @@ import {
   fadeTargetNames,
   rotAList,
   rotBList,
-  posAList,
-  posBList,
+  getPositions,
   Q_left,
 } from "../utils/rigHelpers";
 
@@ -24,11 +23,17 @@ export default function SceneRig(): JSX.Element {
   const scroll = useScroll();
   const capRef = useRef<THREE.Object3D | null>(null);
   const [modelScale, setModelScale] = useState(0.025);
+  const [isMobile, setIsMobile] = useState(false);
+  const [positions, setPositions] = useState(() => getPositions(false));
 
-  // Responsive model scaling based on screen size
+  // Responsive model scaling and positions based on screen size
   useEffect(() => {
     const updateScale = () => {
       const width = window.innerWidth;
+      const mobile = width < 768;
+      setIsMobile(mobile);
+      setPositions(getPositions(mobile));
+      
       if (width < 640) {
         setModelScale(0.015); // Mobile phones
       } else if (width < 768) {
@@ -108,8 +113,8 @@ export default function SceneRig(): JSX.Element {
     }
 
     // positions/rotations lists from helpers
-    const posA = posAList[i] ?? posAList[2];
-    const posB = posBList[i] ?? posBList[posBList.length - 1];
+    const posA = positions.posAList[i] ?? positions.posAList[2];
+    const posB = positions.posBList[i] ?? positions.posBList[positions.posBList.length - 1];
     const rotA = rotAList[i] ?? Q_left;
     const rotB = rotBList[i] ?? Q_left;
 

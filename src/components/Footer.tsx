@@ -110,11 +110,15 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="md:text-right pt-0 grid grid-cols-1">
-          {/* <div className="mb-6">
+        <div className="hidden md:block md:text-right pt-0 grid grid-cols-1">
+          <div className="mb-6">
             <h4 className="text-sm uppercase archimoto-bold tracking-[0.2em] text-gray-500 mb-2">Email</h4>
             <a href={`mailto:${company.contact.email}`} className="text-md transition-colors archimoto-bold button-wipe-hover duration-300" data-text={company.contact.email}>{company.contact.email}</a>
-          </div> */}
+          </div>
+          <div className="mb-6">
+            <h4 className="text-sm uppercase archimoto-bold tracking-[0.2em] text-gray-500 mb-2">Phone</h4>
+            <a href={`tel:${company.contact.phone}`} className="text-md transition-colors archimoto-bold button-wipe-hover duration-300" data-text={company.contact.phone}>{company.contact.phone}</a>
+          </div>
         </div>
 
       </div>
