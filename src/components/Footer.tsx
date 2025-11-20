@@ -12,11 +12,11 @@ const Footer = () => {
 
   return (
     <footer className="relative w-full text-foreground pt-10 pb-5 md:px-10 font-sans " >
-      <div className="w-4/5 mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+      <div className="w-4/5 mx-auto grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-8 items-start">
         
-        <div className="hidden md:block md:col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
+        <div className="hidden md:block md:col-span-2 grid grid-cols-1 gap-0 sm:grid-cols-2 md:gap-4">
           <div>
-            <h3 className="text-sm uppercase archimoto-bold tracking-[0.4em] mb-8 text-tertiary">Connect with us</h3>
+            <h3 className="text-sm uppercase archimoto-bold tracking-[0.4em] mb-4 md:mb-8 text-tertiary">Connect with us</h3>
             <ul className="space-y-4">
               {socialLinks.map(([platform, url]) => (
                 <li key={platform}>
@@ -34,7 +34,7 @@ const Footer = () => {
         {/* responsive section */}
         <div className="md:hidden grid grid-cols-1 gap-4 md:gap-8">
           <div>
-            <h3 className="text-sm uppercase archimoto-bold tracking-[0.4em] mb-8 text-tertiary">Connect with us</h3>
+            <h3 className="text-sm uppercase archimoto-bold tracking-[0.4em] mb-4 md:mb-8 text-tertiary">Connect with us</h3>
             <ul className="grid grid-cols-2 space-y-4">
               {socialLinks.map(([platform, url]) => (
                 <li key={platform}>

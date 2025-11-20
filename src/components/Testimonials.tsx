@@ -26,11 +26,11 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="py-10 md:py-0 md:min-h-screen bg-gradient-to-b from-foreground/80 via-foreground/80 to-foreground/80 backdrop-blur-md flex flex-col items-center justify-center m-0 overflow-hidden">
+    <section id="testimonials" className="py-10 md:py-0 h-screen md:min-h-screen bg-gradient-to-b from-foreground/80 via-foreground/80 to-foreground/80 backdrop-blur-md flex flex-col items-center justify-center m-0 overflow-hidden">
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="What they said"
-          className="w-4/5 uppercase p-2 md:pb-8 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
+          className="w-4/5 uppercase pb-4 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
           delay={100}
           duration={0.6}
           ease="power3.out"
@@ -43,7 +43,7 @@ const Testimonials: React.FC = () => {
           onLetterAnimationComplete={() => { }}
         />
         <hr className="w-[100vw] border-secondary" />
-        <div className="w-4/5 h-full md:min-h-[50vh] py-8 avalon-bold flex flex-col-reverse gap-10 lg:flex-row space-x-4 lg:space-x-0 lg:space-y-6 items-center lg:justify-start lg:pl-8 shrink-0">
+        <div className="w-4/5 pt-8 avalon-bold flex flex-col-reverse gap-10 lg:flex-row space-x-4 lg:space-x-0 lg:space-y-6 items-center lg:justify-start lg:pl-8 shrink-0">
           {/* Main Testimonial Display */}
           <div className="flex-1 lg:pr-24 mb-10 lg:mb-0 lg:text-left w-full lg:w-3/4 h-full md:h-[40vh]">
             <AnimatePresence mode="wait">

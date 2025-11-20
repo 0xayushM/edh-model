@@ -81,7 +81,7 @@ export default function ModelViewer(): JSX.Element {
   }, []);
 
   return (
-    <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh" }}>
+    <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh", zIndex: 0 }}>
       <Canvas shadows camera={{ position: [0, 0, 3], fov: typeof window !== 'undefined' && window.innerWidth < 768 ? 60 : 45 }}>
 
         {/* Lights */}

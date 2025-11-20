@@ -9,11 +9,11 @@ const Team = () => {
     const items = teams;
     return (
         <>
-            <section id="Team" className="py-24 md:py-0 md:h-screen flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm overflow-hidden">
+            <section id="Team" className="py-24 md:py-0 h-screen flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm overflow-hidden">
                 <div className='flex flex-col items-center justify-center h-full w-full '>
                     <SplitText
                         text="Meet the Team"
-                        className="w-4/5 md:w-6/8 uppercase py-0 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
+                        className="w-4/5 md:w-6/8 uppercase pb-4 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
                         delay={100}
                         duration={0.6}
                         ease="power3.out"

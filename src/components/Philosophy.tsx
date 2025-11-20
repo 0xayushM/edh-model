@@ -6,7 +6,7 @@ const Philosophy = () => {
   const philosophyData = philosophy;
 
   return (
-    <section id="philosophy" className="min-h-screen bg-gradient-to-b from-black/0 via-black/70 py-10 to-background/80 backdrop-blur-md flex flex-col items-center justify-center overflow-hidden -mt-px">
+    <section id="philosophy" className="h-screen bg-gradient-to-b from-black/0 via-black/70 py-10 to-background/80 backdrop-blur-md flex flex-col items-center justify-center overflow-hidden -mt-px">
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="Our Philosophy"
@@ -41,7 +41,7 @@ const Philosophy = () => {
                     <p className="mb-4 archimoto transition-colors duration-100 group-hover:text-background">
                       {philosophy.description}
                     </p>
-                    <div className="mb-4">
+                    <div className="hidden lg:block mb-4">
                       <ul className="flex flex-wrap gap-2">
                         {philosophy.points.map((point) => (
                           <li

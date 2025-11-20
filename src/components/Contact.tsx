@@ -7,11 +7,11 @@ const Contact = () => {
 
     return (
         <>
-            <section id="contact" className="py-10 md:min-h-screen flex flex-col items-center justify-center gradient-background md:pt-12">
-                <div className='flex flex-col items-center justify-start h-full w-full'>
+            <section id="contact" className="py-10 h-screen md:min-h-screen flex flex-col items-center justify-center gradient-background md:pt-12">
+                <div className='flex flex-col items-center justify-center h-full w-full'>
                     <SplitText
                         text="Contact Us"
-                        className="w-4/5 md:w-6/8 uppercase py-8 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
+                        className="w-4/5 md:w-6/8 uppercase pb-4 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
                         delay={100}
                         duration={0.6}
                         ease="power3.out"
@@ -26,24 +26,10 @@ const Contact = () => {
                     <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
                         <hr className="w-full md:w-[100vw] border-secondary" />
                         <div className="w-full md:w-6/8 h-full flex flex-col lg:flex-row lg:gap-12 pt-10 px-8 mx-auto md:px-0 ">
-                            <div className="hidden lg:inline flex lg:items-start mx-auto lg:justify-start mb-8 md:mb-0 h-[392px] w-[392px]">
+                            <div className="hidden md:inline flex lg:items-start mx-auto lg:justify-start mb-8 md:mb-0 h-[392px] w-[392px]">
                                 <Cubes
                                     gridSize={8}
                                     cubeSize={36.5}
-                                    maxAngle={30}
-                                    radius={4}
-                                    borderStyle="2px dashed #c08457"
-                                    faceColor="var(--foreground)/50"
-                                    rippleColor="var(--tertiary)"
-                                    rippleSpeed={2}
-                                    autoAnimate={true}
-                                    rippleOnClick={true}
-                                />
-                            </div>
-                            <div className="lg:hidden flex mx-auto mb-8 lg:mb-0 h-[300px] w-[300px]">
-                                <Cubes
-                                    gridSize={8}
-                                    cubeSize={28}
                                     maxAngle={30}
                                     radius={4}
                                     borderStyle="2px dashed #c08457"
