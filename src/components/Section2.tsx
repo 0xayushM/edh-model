@@ -6,7 +6,7 @@ const Section2 = () => {
   return (
     <>
       <section className="w-screen h-screen flex p-4 md:p-8">
-        <div id='home' className='w-full px-2 md:px-5 lg:px-20 flex flex-col items-start justify-center gap-8 md:gap-0'>
+        <div id='home' className='w-full px-2 md:px-5 lg:px-20 flex flex-col items-start justify-evenly md:justify-center gap-48 md:gap-0'>
             <div className='relative z-10 md:h-screen pt-12 md:pt-48 w-full lg:w-[50%] flex flex-col px-2 md:px-4 md:pl-20 md:pr-12 '>
               <h1 className='text-foreground text-2xl md:text-5xl nebulax font-medium uppercase tracking-tighter'><span className='text-tertiary'>T</span>he Clockwork of success Engineered <br/> for you</h1>
             </div>

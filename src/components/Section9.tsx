@@ -6,7 +6,7 @@ const Section9 = () => {
   return (
     <>
       <section className="w-screen h-screen flex p-4 md:p-8">
-        <div id='home' className='w-full px-2 md:px-5 lg:px-20 flex flex-col items-center justify-center text-center gap-8 md:gap-0'>
+        <div id='home' className='w-full px-2 md:px-5 lg:px-20 flex flex-col items-center justify-evenly md:justify-center text-center gap-48 md:gap-0'>
             <div className='relative z-10 md:h-screen md:pt-16 flex flex-col px-2 md:px-4 '>
               <h1 className='text-foreground text-3xl md:text-6xl nebulax font-medium uppercase tracking-tighter'><span className='text-tertiary'>Y</span>our complete success toolbox</h1>
             </div>
