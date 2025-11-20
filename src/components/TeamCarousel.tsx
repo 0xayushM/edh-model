@@ -138,10 +138,10 @@ const TeamCarousel = ({ members }: TeamCarouselProps) => {
                             {/* Content */}
                             <div className="p-4 md:p-6 space-y-2 md:space-y-3">
                                 <div>
-                                    <h3 className="text-xl nebulax font-bold text-[#ededed] mb-1">
+                                    <h3 className="text-lg md:text-xl nebulax font-bold text-[#ededed] mb-1">
                                         {member.title}
                                     </h3>
-                                    <p className="text-sm archimoto text-gray-400">
+                                    <p className="text-xs md:text-sm archimoto text-gray-400">
                                         {member.subtitle}
                                     </p>
                                 </div>
