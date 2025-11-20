@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cubes from '@/ui/Cubes';
+import { supabase } from '@/lib/supabase';
 
 interface ContactDialogProps {
   isOpen: boolean;
@@ -9,6 +10,55 @@ interface ContactDialogProps {
 }
 
 const ContactDialog = ({ isOpen, onClose }: ContactDialogProps) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            created_at: new Date().toISOString()
+          }
+        ]);
+
+      if (error) throw error;
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Close dialog after 2 seconds on success
+      setTimeout(() => {
+        onClose();
+        setSubmitStatus('idle');
+      }, 2000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id.replace('dialog-', '')]: e.target.value
+    }));
+  };
   useEffect(() => {
     if (isOpen) {
       // Freeze scroll on the drei scroll container and body
@@ -118,13 +168,28 @@ const ContactDialog = ({ isOpen, onClose }: ContactDialogProps) => {
               </div>
               
               {/* Right Column: Contact Form */}
-              <form className="flex-1 space-y-6 archimoto flex flex-col w-full">
+              <form onSubmit={handleSubmit} className="flex-1 space-y-6 archimoto flex flex-col w-full">
+                {submitStatus === 'success' && (
+                  <div className="bg-tertiary/20 border border-tertiary text-tertiary px-4 py-3 rounded-lg">
+                    Message sent successfully! We'll get back to you soon.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="bg-red-500/20 border border-red-500 text-red-500 px-4 py-3 rounded-lg">
+                    Failed to send message. Please try again.
+                  </div>
+                )}
+                
                 <div className="relative">
                   <input 
                     type="text" 
                     id="dialog-name" 
                     placeholder=" " 
-                    className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer" 
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer disabled:opacity-50" 
                   />
                   <label 
                     htmlFor="dialog-name" 
@@ -139,7 +204,11 @@ const ContactDialog = ({ isOpen, onClose }: ContactDialogProps) => {
                     type="email" 
                     id="dialog-email" 
                     placeholder=" " 
-                    className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer" 
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer disabled:opacity-50" 
                   />
                   <label 
                     htmlFor="dialog-email" 
@@ -154,7 +223,11 @@ const ContactDialog = ({ isOpen, onClose }: ContactDialogProps) => {
                     id="dialog-message" 
                     rows={5} 
                     placeholder=" " 
-                    className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    disabled={isSubmitting}
+                    className="block w-full p-4 bg-transparent border border-tertiary/50 rounded-lg focus:outline-none focus:ring-1 focus:ring-tertiary focus:border-tertiary peer disabled:opacity-50"
                   />
                   <label 
                     htmlFor="dialog-message" 
@@ -166,10 +239,11 @@ const ContactDialog = ({ isOpen, onClose }: ContactDialogProps) => {
                 
                 <button 
                   type="submit" 
-                  className="w-full bg-transparent border-2 border-tertiary text-tertiary font-bold py-3 px-6 rounded-lg button-wipe-hover uppercase tracking-wider archimoto-bold transition-colors duration-100" 
-                  data-text="Send Message"
+                  disabled={isSubmitting}
+                  className="w-full bg-transparent border-2 border-tertiary text-tertiary font-bold py-3 px-6 rounded-lg button-wipe-hover uppercase tracking-wider archimoto-bold transition-colors duration-100 disabled:opacity-50 disabled:cursor-not-allowed" 
+                  data-text={isSubmitting ? "Sending..." : "Send Message"}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
               
