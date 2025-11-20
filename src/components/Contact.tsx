@@ -25,8 +25,8 @@ const Contact = () => {
                     />
                     <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
                         <hr className="w-full md:w-[100vw] border-secondary" />
-                        <div className="w-full md:w-6/8 h-full flex flex-col md:flex-row md:gap-12 pt-10 px-8 mx-auto md:px-0 ">
-                            <div className="hidden md:inline flex md:items-start md:justify-start mb-8 md:mb-0 h-[392px] w-[392px]">
+                        <div className="w-full md:w-6/8 h-full flex flex-col lg:flex-row lg:gap-12 pt-10 px-8 mx-auto md:px-0 ">
+                            <div className="hidden lg:inline flex lg:items-start mx-auto lg:justify-start mb-8 md:mb-0 h-[392px] w-[392px]">
                                 <Cubes
                                     gridSize={8}
                                     cubeSize={36.5}
@@ -40,10 +40,10 @@ const Contact = () => {
                                     rippleOnClick={true}
                                 />
                             </div>
-                            <div className="md:hidden flex mb-8 md:mb-0 h-[350px] w-[392px]">
+                            <div className="lg:hidden flex mx-auto mb-8 lg:mb-0 h-[300px] w-[300px]">
                                 <Cubes
                                     gridSize={8}
-                                    cubeSize={32.5}
+                                    cubeSize={28}
                                     maxAngle={30}
                                     radius={4}
                                     borderStyle="2px dashed #c08457"
@@ -70,7 +70,7 @@ const Contact = () => {
                                 </div>
                                 <button type="submit" className="w-full bg-transparent border-2 border-tertiary text-tertiary font-bold py-3 px-6 rounded-lg button-wipe-hover uppercase tracking-wider archimoto-bold transition-colors duration-100" data-text="Send Message">Send Message</button>
                             </form>
-                            <div className="hidden md:flex items-center justify-start ">
+                            <div className="hidden lg:flex items-center justify-start ">
                                 <h1 className="[writing-mode:vertical-lr] text-7xl font-bold tracking-widest nebulax bg-gradient-to-b from-tertiary to-foreground bg-clip-text text-transparent">EDHWAY</h1>
                             </div>
                         </div>
