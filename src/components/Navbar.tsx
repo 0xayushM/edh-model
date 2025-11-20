@@ -28,14 +28,14 @@ const Navbar = () => {
               alt="EDHWay logo"
               width={160}
               height={40}
-              className="h-8 w-auto md:h-12"
+              className="h-12 w-auto md:h-12"
               priority
             />
           </button>
           
           <button 
             onClick={() => setIsContactDialogOpen(true)}
-            className='px-6 py-2 md:px-8 md:py-3 bg-tertiary hover:bg-tertiary/90 text-background font-geist-sans archimoto-bold tracking-wider uppercase text-sm md:text-base transition-all duration-300 rounded-md'
+            className='px-4 py-2 md:px-8 md:py-3 bg-tertiary hover:bg-tertiary/90 text-background font-geist-sans archimoto-bold tracking-wider uppercase text-xs md:text-base transition-all duration-300 rounded-md'
           >
             Get in Touch
           </button>
