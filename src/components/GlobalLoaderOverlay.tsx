@@ -10,7 +10,7 @@ export default function GlobalLoaderOverlay() {
   // Ensure we show the overlay at least briefly on first paint to avoid flashes
   const [bootDelayDone, setBootDelayDone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setBootDelayDone(true), 5000);
+    const t = setTimeout(() => setBootDelayDone(true), 500);
     return () => clearTimeout(t);
   }, []);
 
@@ -30,7 +30,7 @@ export default function GlobalLoaderOverlay() {
     }
     // Start fade-out and unmount after a short delay
     setOpacity(0);
-    const t = setTimeout(() => setMounted(false), 1200);
+    const t = setTimeout(() => setMounted(false), 3000);
     return () => clearTimeout(t);
   }, [shouldShow]);
 
@@ -46,7 +46,7 @@ export default function GlobalLoaderOverlay() {
       style={{ opacity, transition: "opacity 480ms ease" }}
     >
       <div className="flex flex-col items-center gap-6 px-6">
-        <AnimatedLoading color="#EEDFD0" strokeWidth={2} className="w-[320px] sm:w-[420px]" />
+        <AnimatedLoading color="#EEDFD0" className="w-[320px] sm:w-[420px]" />
       </div>
     </div>
   );

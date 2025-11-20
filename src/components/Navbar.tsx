@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const Navbar = () => {
@@ -17,8 +18,15 @@ const Navbar = () => {
   return (
     <nav className='fixed top-0 w-full z-50'>
       <div className='flex items-center justify-between w-full p-4 md:px-16 md:pb-0 md:pt-12'>
-        <Link href="#home" className='archimoto-bold text-xl md:text-2xl'>
-          EDHWay
+        <Link href="#home" className='flex items-center'>
+          <Image
+            src="/logo.png"
+            alt="EDHWay logo"
+            width={160}
+            height={40}
+            className="h-8 w-auto md:h-12"
+            priority
+          />
         </Link>
         
         <div className='hidden md:flex font-geist-sans text-sm archimoto-bold tracking-[0.2rem] flex-col items-end uppercase'>
