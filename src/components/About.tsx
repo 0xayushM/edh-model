@@ -5,11 +5,11 @@ import CountUp from '@/ui/CountUp';
 const About = () => {
 
     return (
-        <section id="about" className="min-h-screen bg-foreground/80 backdrop-blur-md flex flex-col items-center justify-center">
+        <section id="about" className="h-screen bg-foreground/80 backdrop-blur-md flex flex-col items-center justify-center">
             <div className='flex flex-col items-center justify-center md:h-full w-full'>
                 <SplitText
                     text="About Us"
-                    className="w-4/5 uppercase py-8 md:pb-8 text-background text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
+                    className="w-4/5 uppercase pt-8 pb-4 md:pb-8 text-background text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
                     delay={100}
                     duration={0.6}
                     ease="power3.out"
@@ -25,7 +25,7 @@ const About = () => {
                     <hr className="w-full md:w-[100vw] border-secondary" />
                     <div className='w-4/5 grid md:grid-cols-2 pt-12 pb-20 md:pt-20 items-center gap-8'>
                         <div>
-                            <p className="archimoto text-background text-justify break-words hyphens-auto text-lg md:text-2xl">
+                            <p className="archimoto text-background text-justify break-words hyphens-auto text-sm md:text-lg">
                                 At <span className='text-background nebulax'>EDHWay</span>, we believe that growth should be smooth, not chaotic. Most businesses lose time, money, and opportunities because of broken workflows, disconnected marketing, and manual follow-ups.
                                 <br />
                                 <br />
@@ -33,7 +33,7 @@ const About = () => {
                             </p>
                         </div>
                         <div className='grid grid-cols-2 gap-y-8 gap-x-0'>
-                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-2xl md:text-4xl'>
+                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-xl md:text-4xl'>
                             <div className='py-2'>
                             <CountUp
                                 from={0}
@@ -45,7 +45,7 @@ const About = () => {
                             />+</div>
                             <h1 className='archimoto text-lg md:text-xl text-center'>Workflows<br/> Automated</h1>
                             </div>
-                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-2xl md:text-4xl'>
+                            <div className='flex flex-col items-center justify-center py-0 text-background nebulax text-xl md:text-4xl'>
                             <div className='py-2'>
                             <CountUp
                                 from={0}

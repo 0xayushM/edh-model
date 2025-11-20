@@ -7,18 +7,47 @@ import React, { useState } from 'react';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const scrollToSection = (sectionId: string) => {
+    // Find the drei scroll container
+    const scrollContainer = document.querySelector('.scroll') as HTMLElement;
+    
+    if (scrollContainer) {
+      // Section mapping to page numbers (0-indexed, each section is 1 page)
+      const sectionMap: { [key: string]: number } = {
+        'home': 0,      // Hero
+        'about': 1,     // About
+        'philosophy': 9, // Philosophy (after Section1, Section2, Gear1-4, Section9)
+        'contact': 12   // Contact (last section)
+      };
+      
+      const pageNumber = sectionMap[sectionId];
+      if (pageNumber !== undefined) {
+        const totalPages = 13;
+        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        const targetScroll = (pageNumber / (totalPages - 1)) * scrollHeight;
+        
+        scrollContainer.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      }
+    }
+    
+    setIsMenuOpen(false);
+  };
+
   const navLinks = (
     <>
-      <Link href="#about" className={`text-foreground hover:text-tertiary transition-colors duration-300`}>About</Link>
-      <Link href="#philosophy" className={`text-foreground hover:text-tertiary transition-colors duration-300`}>Philosophy</Link>
-      <Link href="#contact" className={`text-foreground hover:text-tertiary transition-colors duration-300`}>Contact</Link>
+      <button onClick={() => scrollToSection('about')} className={`text-foreground hover:text-tertiary transition-colors duration-300`}>About</button>
+      <button onClick={() => scrollToSection('philosophy')} className={`text-foreground hover:text-tertiary transition-colors duration-300`}>Philosophy</button>
+      <button onClick={() => scrollToSection('contact')} className={`text-foreground hover:text-tertiary transition-colors duration-300`}>Contact</button>
     </>
   );
 
   return (
     <nav className='fixed top-0 w-full z-50'>
-      <div className='flex items-center justify-between w-full p-4 md:px-16 xl:px-32 2xl:px-48 md:pb-0 md:pt-12'>
-        <Link href="#home" className='flex items-center'>
+      <div className='flex items-center justify-between w-full p-4 md:px-16 xl:px-36 md:pb-0 md:pt-12'>
+        <button onClick={() => scrollToSection('home')} className='flex items-center cursor-pointer'>
           <Image
             src="/logo.png"
             alt="EDHWay logo"
@@ -27,7 +56,7 @@ const Navbar = () => {
             className="h-8 w-auto md:h-12"
             priority
           />
-        </Link>
+        </button>
         
         <div className='hidden md:flex font-geist-sans text-sm archimoto-bold tracking-[0.2rem] flex-col items-end uppercase'>
           {navLinks}

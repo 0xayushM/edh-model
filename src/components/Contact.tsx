@@ -25,7 +25,7 @@ const Contact = () => {
                     />
                     <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
                         <hr className="w-full md:w-[100vw] border-secondary" />
-                        <div className="w-full md:w-6/8 h-full flex flex-col lg:flex-row lg:gap-12 pt-10 px-8 mx-auto md:px-0 ">
+                        <div className="w-full md:w-6/8 h-full flex flex-col lg:flex-row lg:gap-12 pt-4 md:pt-10 px-8 mx-auto md:px-0 ">
                             <div className="hidden md:inline flex lg:items-start mx-auto lg:justify-start mb-8 md:mb-0 h-[392px] w-[392px]">
                                 <Cubes
                                     gridSize={8}

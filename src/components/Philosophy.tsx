@@ -31,17 +31,17 @@ const Philosophy = () => {
 
               {/* Content layer */}
               <div className="relative w-4/5 mx-auto py-8 z-10">
-                <div className="mt-0 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
+                <div className="mt-0 grid grid-cols-1 lg:grid-cols-2 md:gap-4 lg:gap-8 items-center">
                   <div>
-                    <h1 className="pb-4 uppercase tracking-tighter text-4xl lg:text-7xl font-semibold text-start nebulax leading-[1] transition-colors duration-100 group-hover:text-background">
+                    <h1 className="pb-4 uppercase tracking-tighter text-3xl lg:text-7xl font-semibold text-start nebulax leading-[1] transition-colors duration-100 group-hover:text-background">
                       {philosophy.name}
                     </h1>
                   </div>
                   <div>
-                    <p className="mb-4 archimoto transition-colors duration-100 group-hover:text-background">
+                    <p className="md:mb-4 archimoto transition-colors duration-100 group-hover:text-background">
                       {philosophy.description}
                     </p>
-                    <div className="hidden lg:block mb-4">
+                    <div className="hidden lg:block md:mb-4">
                       <ul className="flex flex-wrap gap-2">
                         {philosophy.points.map((point) => (
                           <li

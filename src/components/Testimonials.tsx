@@ -30,7 +30,7 @@ const Testimonials: React.FC = () => {
       <div className='flex flex-col items-center justify-center h-full w-full'>
         <SplitText
           text="What they said"
-          className="w-4/5 uppercase pb-4 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
+          className="w-4/5 uppercase pb-8 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
           delay={100}
           duration={0.6}
           ease="power3.out"
@@ -55,8 +55,8 @@ const Testimonials: React.FC = () => {
                 exit="exit"
               >
                 <div className="relative mb-8">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl archimoto leading-tight text-background">
-                    <span className="absolute -left-20 top-0 text-7xl md:text-9xl text-tertiary hidden lg:block font-bold opacity-90 select-none">“</span>
+                  <h2 className="text-2xl sm:text-4xl md:text-5xl archimoto leading-tight text-background">
+                    <span className="absolute -left-20 top-0 text-tertiary hidden lg:block font-bold opacity-90 select-none">“</span>
                     {activeTestimonial.quote}
                   </h2>
                 </div>
