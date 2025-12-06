@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SplitText from '@/ui/SplitText';
 import Footer from './Footer';
 import Cubes from '@/ui/Cubes';
 import { supabase } from '@/lib/supabase';
@@ -53,20 +52,9 @@ const Contact = () => {
         <>
             <section id="contact" className="py-10 h-screen md:min-h-screen flex flex-col items-center justify-center gradient-background md:pt-12">
                 <div className='flex flex-col items-center justify-center h-full w-full'>
-                    <SplitText
-                        text="Contact Us"
-                        className="w-4/5 md:w-6/8 uppercase pb-4 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
-                        delay={100}
-                        duration={0.6}
-                        ease="power3.out"
-                        splitType="chars"
-                        from={{ opacity: 0, y: 40 }}
-                        to={{ opacity: 1, y: 0 }}
-                        threshold={0.1}
-                        rootMargin="-200px"
-                        textAlign="start"
-                        onLetterAnimationComplete={() => { }}
-                    />
+                    <h1 className="w-4/5 md:w-6/8 uppercase pb-4 md:pb-8 text-foreground text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]">
+                        Contact Us
+                    </h1>
                     <div className="w-full md:w-[100vw] flex flex-col items-center justify-center">
                         <hr className="w-full md:w-[100vw] border-secondary" />
                         <div className="w-full md:w-6/8 h-full flex flex-col lg:flex-row lg:gap-12 pt-4 md:pt-10 px-8 mx-auto md:px-0 ">

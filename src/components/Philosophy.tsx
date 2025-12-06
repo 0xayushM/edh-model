@@ -1,5 +1,4 @@
 import React from 'react';
-import SplitText from '@/ui/SplitText';
 import philosophy from '@/data/philosophy.json'
 
 const Philosophy = () => {
@@ -8,20 +7,9 @@ const Philosophy = () => {
   return (
     <section id="philosophy" className="h-screen bg-gradient-to-b from-black/0 via-black/70 py-10 to-background/80 backdrop-blur-md flex flex-col items-center justify-center overflow-hidden -mt-px">
       <div className='flex flex-col items-center justify-center h-full w-full'>
-        <SplitText
-          text="Our Philosophy"
-          className="w-4/5 uppercase p-2 lg:pb-8 text-foreground text-sm lg:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
-          delay={100}
-          duration={0.6}
-          ease="power3.out"
-          splitType="chars"
-          from={{ opacity: 0, y: 40 }}
-          to={{ opacity: 1, y: 0 }}
-          threshold={0.1}
-          rootMargin="-200px"
-          textAlign="start"
-          onLetterAnimationComplete={() => { }}
-        />
+        <h1 className="w-4/5 uppercase p-2 lg:pb-8 text-foreground text-sm lg:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]">
+          Our Philosophy
+        </h1>
         <div className="w-full lg:w-[100vw] flex flex-col items-stretch justify-center">
           {philosophyData.map((philosophy) => (
             <div key={philosophy.id} className="group relative cursor-pointer">

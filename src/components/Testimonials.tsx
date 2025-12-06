@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, Variants } from 'motion/react';
-import SplitText from '@/ui/SplitText';
 import testimonials from '@/data/testimonials.json'
 
 
@@ -28,20 +27,9 @@ const Testimonials: React.FC = () => {
   return (
     <section id="testimonials" className="py-10 md:py-0 h-screen md:min-h-screen bg-gradient-to-b from-foreground/80 via-foreground/80 to-foreground/80 backdrop-blur-md flex flex-col items-center justify-center m-0 overflow-hidden">
       <div className='flex flex-col items-center justify-center h-full w-full'>
-        <SplitText
-          text="What they said"
-          className="w-4/5 uppercase pb-8 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold"
-          delay={100}
-          duration={0.6}
-          ease="power3.out"
-          splitType="chars"
-          from={{ opacity: 0, y: 40 }}
-          to={{ opacity: 1, y: 0 }}
-          threshold={0.1}
-          rootMargin="-200px"
-          textAlign="start"
-          onLetterAnimationComplete={() => { }}
-        />
+        <h1 className="w-4/5 uppercase pb-8 text-background text-sm md:text-sm font-light text-start uppercase tracking-[0.4em] archimoto-bold">
+          What they said
+        </h1>
         <hr className="w-[100vw] border-secondary" />
         <div className="w-4/5 pt-8 avalon-bold flex flex-col-reverse gap-10 lg:flex-row space-x-4 lg:space-x-0 lg:space-y-6 items-center lg:justify-start lg:pl-8 shrink-0">
           {/* Main Testimonial Display */}

@@ -1,5 +1,4 @@
 import React from 'react';
-import SplitText from '@/ui/SplitText';
 import CountUp from '@/ui/CountUp';
 
 const About = () => {
@@ -7,20 +6,9 @@ const About = () => {
     return (
         <section id="about" className="h-screen bg-foreground/80 backdrop-blur-md flex flex-col items-center justify-center">
             <div className='flex flex-col items-center justify-center md:h-full w-full'>
-                <SplitText
-                    text="About Us"
-                    className="w-4/5 uppercase pt-8 pb-4 md:pb-8 text-background text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]"
-                    delay={100}
-                    duration={0.6}
-                    ease="power3.out"
-                    splitType="chars"
-                    from={{ opacity: 0, y: 40 }}
-                    to={{ opacity: 1, y: 0 }}
-                    threshold={0.1}
-                    rootMargin="-200px"
-                    textAlign="start"
-                    onLetterAnimationComplete={() => { }}
-                />
+                <h1 className="w-4/5 uppercase pt-8 pb-4 md:pb-8 text-background text-sm md:text-sm font-light text-start archimoto-bold uppercase tracking-[0.4em]">
+                    About Us
+                </h1>
                 <div className="w-full md:w-[100vw] flex flex-col items-center justify-center ">
                     <hr className="w-full md:w-[100vw] border-secondary" />
                     <div className='w-4/5 grid md:grid-cols-2 pt-12 pb-20 md:pt-20 items-center gap-8'>
