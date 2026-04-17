@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import ModelViewer from "@/components/ModelViewer";
 import Squares from "@/ui/Squares";
 import Hero from "@/components/Hero";
@@ -13,8 +14,20 @@ import Philosophy from "@/components/Philosophy";
 import Testimonials from "@/components/Testimonials";
 import Team from "@/components/Team";
 import Contact from "@/components/Contact";
+import VisitorTracker from "@/lib/visitorTracking";
+import VisitorContactForm from "@/components/VisitorContactForm";
 
 export default function Home() {
+  const [showVisitorForm, setShowVisitorForm] = useState(false);
+
+  useEffect(() => {
+    // Show visitor form after 10 seconds
+    const timer = setTimeout(() => {
+      setShowVisitorForm(true);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <main className="relative min-h-screen bg-background text-foreground">
       {/* Background squares - behind everything */}
@@ -32,6 +45,12 @@ export default function Home() {
       <div className="flex flex-col items-center h-screen relative z-10">
         <ModelViewer />
       </div>
+
+      {/* Visitor Contact Form */}
+      <VisitorContactForm 
+        show={showVisitorForm} 
+        onClose={() => setShowVisitorForm(false)} 
+      />
     </main>
   );
 }
