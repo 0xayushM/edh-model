@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Footer from './Footer';
 import Cubes from '@/ui/Cubes';
-import { supabase } from '@/lib/supabase';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -18,18 +17,22 @@ const Contact = () => {
         setSubmitStatus('idle');
 
         try {
-            const { error } = await supabase
-                .from('contact_submissions')
-                .insert([
-                    {
+            const endpoint = `${process.env.NEXT_PUBLIC_DASHBOARD_ENDPOINT}/${process.env.NEXT_PUBLIC_DASHBOARD_PROJECT_ID}`;
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    api_key: process.env.NEXT_PUBLIC_DASHBOARD_API_KEY, 
+                    form_name: 'contact', 
+                    data: {
                         name: formData.name,
                         email: formData.email,
-                        message: formData.message,
-                        created_at: new Date().toISOString()
+                        message: formData.message
                     }
-                ]);
+                })
+            });
 
-            if (error) throw error;
+            if (!response.ok) throw new Error('Failed to submit form');
 
             setSubmitStatus('success');
             setFormData({ name: '', email: '', message: '' });

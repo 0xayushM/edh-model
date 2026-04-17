@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Cubes from '@/ui/Cubes';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 interface ContactDialogProps {
   isOpen: boolean;
@@ -24,60 +23,32 @@ const ContactDialog = ({ isOpen, onClose }: ContactDialogProps) => {
     setSubmitStatus('idle');
 
     try {
-      // Check if Supabase is configured
-      if (!isSupabaseConfigured()) {
-        throw new Error('Supabase is not configured. Please contact the administrator.');
-      }
-
-      const { data, error } = await supabase
-        .from('contact_submissions')
-        .insert([
-          {
+      const endpoint = `${process.env.NEXT_PUBLIC_DASHBOARD_ENDPOINT}/${process.env.NEXT_PUBLIC_DASHBOARD_PROJECT_ID}`;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          api_key: process.env.NEXT_PUBLIC_DASHBOARD_API_KEY, 
+          form_name: 'contact-dialog', 
+          data: {
             name: formData.name,
             email: formData.email,
-            message: formData.message,
-            created_at: new Date().toISOString()
+            message: formData.message
           }
-        ])
-        .select();
+        })
+      });
 
-      if (error) {
-        console.error('Supabase error:', error);
-        console.error('Error details (JSON):', JSON.stringify(error, null, 2));
-        console.error('Error type:', typeof error);
-        console.error('Error keys:', Object.keys(error));
-        console.error('Error properties:', {
-          code: error.code,
-          message: error.message,
-          details: error.details,
-          hint: error.hint,
-          status: (error as any).status,
-          statusCode: (error as any).statusCode,
-        });
-        
-        // Try to extract all properties
-        const allProps: any = {};
-        for (const key in error) {
-          allProps[key] = (error as any)[key];
-        }
-        console.error('All error properties:', allProps);
-        
-        const errorMsg = error.message || error.hint || error.details || 'Database error occurred. The table may not exist or you may not have permission.';
-        throw new Error(errorMsg);
-      }
+      if (!response.ok) throw new Error('Failed to submit form');
 
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
       
-      // Close dialog after 2 seconds on success
       setTimeout(() => {
         onClose();
         setSubmitStatus('idle');
       }, 2000);
     } catch (error) {
       console.error('Error submitting form:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-      console.error('Detailed error:', errorMessage);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
